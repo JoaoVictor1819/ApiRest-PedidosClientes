@@ -3,6 +3,7 @@ package Api_Rest.Pedidos.clientes.service;
 
 import Api_Rest.Pedidos.clientes.dto.ProdutoDto;
 import Api_Rest.Pedidos.clientes.entity.Produto;
+import Api_Rest.Pedidos.clientes.entity.StatusPedido;
 import Api_Rest.Pedidos.clientes.exception.ResourceExceptionHandler;
 import Api_Rest.Pedidos.clientes.repository.ProdutoRepository;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,7 @@ public class ProdutoService {
         return produtoRepository.findById(id)
                 .orElseThrow(() -> new ResourceExceptionHandler("Product Id: "+ id +" Not Found"));
     }
+
 
     public void deleteProduto(Long id){
         produtoRepository.deleteById(id);

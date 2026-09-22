@@ -43,4 +43,9 @@ public class ClienteController {
         var cliente = clienteService.updateCliente(id, dto);
         return ResponseEntity.status(HttpStatus.OK).body(cliente);
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Cliente> deleteCliente(@PathVariable Long id) {
+        clienteService.deleteCliente(id);
+        return ResponseEntity.status(HttpStatus.OK).body(clienteService.findClienteById(id));it s
+    }
 }

@@ -18,9 +18,19 @@ public class ClienteService {
         this.clienteRepository = clienteRepository;
     }
 
-    public Cliente saveCliente(ClienteDto dto){
-        var cliente = new Cliente(dto);
-        return clienteRepository.save(cliente);
+    public void saveCliente(ClienteDto dto){
+        Cliente cliente = clienteRepository.findByEmail(dto.getEmail())
+                .orElse(null);
+
+        if (cliente != null){
+            throw new RuntimeException("Este email de cliente ja existe!");
+        }
+
+        clienteRepository.save(Cliente.builder()
+                .name(dto.getName())
+                .email(dto.getEmail())
+                .build());
+
     }
 
     public List<Cliente> findAllCliente(){
@@ -45,8 +55,8 @@ public class ClienteService {
                 .orElseThrow(() -> new ResourceExceptionHandler("Cliente id: "+ id + "Not Found!"));
 
         var cliente = new Cliente(dto);
-        cliente.setName(dto.name());
-        cliente.setEmail(dto.email());
+        cliente.setName(dto.getName());
+        cliente.setEmail(dto.getEmail());
 
         return clienteRepository.save(cliente);
     }

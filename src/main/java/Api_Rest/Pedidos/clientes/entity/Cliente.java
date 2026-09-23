@@ -3,10 +3,7 @@ package Api_Rest.Pedidos.clientes.entity;
 
 import Api_Rest.Pedidos.clientes.dto.ClienteDto;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -17,6 +14,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Cliente {
 
     @Id
@@ -25,10 +23,11 @@ public class Cliente {
 
     private String name;
 
+    @Column(unique = true, nullable = false)
     private String email;
 
     public Cliente(ClienteDto dto) {
-        this.name = dto.name();
-        this.email = dto.email();
+        this.name = dto.getName();
+        this.email = dto.getEmail();
     }
 }

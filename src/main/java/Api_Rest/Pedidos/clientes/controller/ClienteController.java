@@ -28,9 +28,9 @@ public class ClienteController {
 
     @PostMapping
     @Operation(summary = "Metodo Salvar", description = "Metodo feito para cadastrar clientes!")
-    public ResponseEntity<Cliente> save(@RequestBody @Valid ClienteDto dto) {
-        var cliente = clienteService.saveCliente(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(cliente);
+    public ResponseEntity save(@RequestBody @Valid ClienteDto dto) {
+        clienteService.saveCliente(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Criado com suscesso!");
     }
 
     @GetMapping

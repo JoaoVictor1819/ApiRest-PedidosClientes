@@ -3,6 +3,7 @@ package Api_Rest.Pedidos.clientes.service;
 
 import Api_Rest.Pedidos.clientes.dto.ClienteDto;
 import Api_Rest.Pedidos.clientes.entity.Cliente;
+import Api_Rest.Pedidos.clientes.exception.BadRequestExceptionHandler;
 import Api_Rest.Pedidos.clientes.exception.ResourceExceptionHandler;
 import Api_Rest.Pedidos.clientes.repository.ClienteRepository;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class ClienteService {
                 .orElse(null);
 
         if (cliente != null){
-            throw new RuntimeException("Este email de cliente ja existe!");
+            throw new BadRequestExceptionHandler("Este email de cliente ja existe!");
         }
 
         clienteRepository.save(Cliente.builder()
@@ -35,6 +36,14 @@ public class ClienteService {
 
     public List<Cliente> findAllCliente(){
         return  clienteRepository.findAll();
+    }
+
+    public List<Cliente> findByName(String name){
+        if (name == null || name.isEmpty()){
+            return clienteRepository.findAll();
+        }
+
+        return clienteRepository.findByNameContainingIgnoreCase(name);
     }
 
     public Cliente findClienteById(Long id){

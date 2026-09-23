@@ -3,10 +3,11 @@ package Api_Rest.Pedidos.clientes.service;
 
 import Api_Rest.Pedidos.clientes.dto.ProdutoDto;
 import Api_Rest.Pedidos.clientes.entity.Produto;
-import Api_Rest.Pedidos.clientes.entity.StatusPedido;
+import Api_Rest.Pedidos.clientes.exception.BadRequestExceptionHandler;
 import Api_Rest.Pedidos.clientes.exception.ResourceExceptionHandler;
 import Api_Rest.Pedidos.clientes.repository.ProdutoRepository;
-import org.hibernate.sql.exec.spi.PrimaryOperation;
+import jakarta.transaction.Transactional;
+import org.apache.coyote.BadRequestException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,12 +21,14 @@ public class ProdutoService {
         this.produtoRepository = produtoRepository;
     }
 
+
+    @Transactional
     public void saveProduto(ProdutoDto dto){
-       Produto produto = produtoRepository.findByName(dto.getNome())
+       Produto produto = produtoRepository.findByNome(dto.getNome())
                .orElse(null);
 
        if (produto != null){
-           throw new RuntimeException("Produto ja cadastrado");
+           throw new BadRequestExceptionHandler("Produto ja foi cadastrado!");
        }
 
        produtoRepository.save(Produto.builder()
@@ -51,6 +54,8 @@ public class ProdutoService {
         produtoRepository.deleteById(id);
     }
 
+
+    @Transactional
     public Produto updateProduto(Long id, ProdutoDto dto){
         produtoRepository.findById(id)
                 .orElseThrow(() -> new ResourceExceptionHandler("Product Id: "+ id +" Not Found"));

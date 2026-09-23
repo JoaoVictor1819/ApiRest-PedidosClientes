@@ -47,6 +47,13 @@ public class ClienteController {
         return ResponseEntity.status(HttpStatus.OK).body(cliente);
     }
 
+    @GetMapping("/name")
+    private ResponseEntity<List<Cliente>> findByName(@RequestParam (required = false )String name) {
+        List<Cliente> cliente = clienteService.findByName(name);
+        return ResponseEntity.status(HttpStatus.OK).body(cliente);
+    }
+
+
     @PutMapping("/{id}")
     @Operation(summary = "Metodo Modificar", description = "Metodo feito para modificar cliente por id!")
     public ResponseEntity<Cliente> updateCliente(@PathVariable @Valid Long id, @RequestBody @Valid ClienteDto dto) {

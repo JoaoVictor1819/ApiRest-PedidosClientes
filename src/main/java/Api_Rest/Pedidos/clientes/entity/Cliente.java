@@ -21,10 +21,15 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
     @Column(unique = true, nullable = false)
     private String email;
+
+
+    @OneToMany(mappedBy = "cliente")
+    private Set<Produto> produtos = new HashSet<>();
 
     public Cliente(ClienteDto dto) {
         this.name = dto.getName();

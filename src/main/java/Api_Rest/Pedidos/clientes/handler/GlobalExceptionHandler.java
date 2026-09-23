@@ -1,6 +1,7 @@
 package Api_Rest.Pedidos.clientes.handler;
 
 
+import Api_Rest.Pedidos.clientes.exception.BadRequestExceptionHandler;
 import Api_Rest.Pedidos.clientes.exception.ResourceExceptionHandler;
 import Api_Rest.Pedidos.clientes.exception.RestErrorMenssage;
 import org.springframework.http.HttpStatus;
@@ -46,4 +47,16 @@ public class GlobalExceptionHandler {
                 .build();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(restErrorMenssage);
     }
+
+    @ExceptionHandler(BadRequestExceptionHandler.class)
+    private ResponseEntity<RestErrorMenssage> BadRequestHandler(BadRequestExceptionHandler ex){
+        RestErrorMenssage errorMenssage = RestErrorMenssage
+                .builder()
+                .data(new Date())
+                .message(ex.getMessage())
+                .status(HttpStatus.BAD_REQUEST)
+                .build();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMenssage);
+    }
+
 }

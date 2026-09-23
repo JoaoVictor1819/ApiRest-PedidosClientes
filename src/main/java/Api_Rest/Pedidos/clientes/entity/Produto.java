@@ -2,10 +2,7 @@ package Api_Rest.Pedidos.clientes.entity;
 
 import Api_Rest.Pedidos.clientes.dto.ProdutoDto;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 
@@ -15,6 +12,7 @@ import java.math.BigDecimal;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Produto {
 
     @Id
@@ -32,9 +30,9 @@ public class Produto {
 
 
     public Produto(ProdutoDto dto) {
-        this.nome = dto.nome();
-        this.preco = dto.preco();
-        this.descricao = dto.descricao();
-        this.statusPedido = dto.statusPedido();
+        this.nome = dto.getNome();
+        this.preco = dto.getPreco();
+        this.descricao = dto.getDescricao();
+        this.statusPedido = dto.getStatusPedido();
     }
 }

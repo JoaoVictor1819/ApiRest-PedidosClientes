@@ -6,6 +6,7 @@ import Api_Rest.Pedidos.clientes.entity.Produto;
 import Api_Rest.Pedidos.clientes.entity.StatusPedido;
 import Api_Rest.Pedidos.clientes.exception.ResourceExceptionHandler;
 import Api_Rest.Pedidos.clientes.repository.ProdutoRepository;
+import org.hibernate.sql.exec.spi.PrimaryOperation;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,9 +20,21 @@ public class ProdutoService {
         this.produtoRepository = produtoRepository;
     }
 
-    public Produto saveProduto(ProdutoDto dto){
-        var produto = new Produto(dto);
-        return produtoRepository.save(produto);
+    public void saveProduto(ProdutoDto dto){
+       Produto produto = produtoRepository.findByName(dto.getNome())
+               .orElse(null);
+
+       if (produto != null){
+           throw new RuntimeException("Produto ja cadastrado");
+       }
+
+       produtoRepository.save(Produto.builder()
+               .nome(dto.getNome())
+               .preco(dto.getPreco())
+               .descricao(dto.getDescricao())
+               .statusPedido(dto.getStatusPedido())
+               .build());
+
     }
 
     public List<Produto> findAllProduto(){
@@ -43,10 +56,10 @@ public class ProdutoService {
                 .orElseThrow(() -> new ResourceExceptionHandler("Product Id: "+ id +" Not Found"));
 
         var produto = new Produto(dto);
-        produto.setNome(dto.nome());
-        produto.setPreco(dto.preco());
-        produto.setDescricao(dto.descricao());
-        produto.setStatusPedido(dto.statusPedido());
+        produto.setNome(dto.getNome());
+        produto.setPreco(dto.getPreco());
+        produto.setDescricao(dto.getDescricao());
+        produto.setStatusPedido(dto.getStatusPedido());
 
         return  produtoRepository.save(produto);
     }

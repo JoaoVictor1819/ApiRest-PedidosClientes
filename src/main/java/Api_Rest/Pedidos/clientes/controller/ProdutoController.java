@@ -24,9 +24,9 @@ public class ProdutoController {
     }
 
     @PostMapping
-    public ResponseEntity<Produto> cadastrarProduto(@RequestBody @Valid ProdutoDto dto){
-        var produto = produtoService.saveProduto(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(produto);
+    public ResponseEntity cadastrarProduto(@RequestBody @Valid ProdutoDto dto){
+        produtoService.saveProduto(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Produto cadastrado com suscesso!");
     }
 
     @GetMapping

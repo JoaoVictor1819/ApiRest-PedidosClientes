@@ -32,6 +32,7 @@ public class Produto {
     StatusPedido statusPedido;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
     public Produto(ProdutoDto dto) {

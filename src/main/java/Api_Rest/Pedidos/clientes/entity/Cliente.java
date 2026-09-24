@@ -27,6 +27,9 @@ public class Cliente {
     @Column(unique = true, nullable = false)
     private String email;
 
+    @OneToOne
+    @JoinColumn(name = "metodo_pagamento_id")
+    private MetodosPagamentos metodosPagamento;
 
     @OneToMany(mappedBy = "cliente")
     private Set<Produto> produtos = new HashSet<>();

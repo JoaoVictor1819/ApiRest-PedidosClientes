@@ -30,6 +30,5 @@ public class ProdutoDto{
          @DecimalMin(value = "0.01", inclusive = false, message = "O valor tem que ser maior que zero")
          private BigDecimal preco;
 
-
          private StatusPedido statusPedido;
 }

@@ -49,7 +49,7 @@ public class ProdutoService {
     public List<Produto> findByStatus(StatusPedido statusPedido){
 
         if (statusPedido == null){
-            return produtoRepository.findAll();
+           throw new BadRequestExceptionHandler("Nao existe nenhum produto com este status cadastrado!");
         }
 
        return produtoRepository.findByStatusPedido(statusPedido);

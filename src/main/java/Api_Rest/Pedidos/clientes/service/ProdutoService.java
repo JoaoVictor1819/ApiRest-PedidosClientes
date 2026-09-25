@@ -3,10 +3,12 @@ package Api_Rest.Pedidos.clientes.service;
 
 import Api_Rest.Pedidos.clientes.dto.ProdutoDto;
 import Api_Rest.Pedidos.clientes.entity.Produto;
+import Api_Rest.Pedidos.clientes.entity.StatusPedido;
 import Api_Rest.Pedidos.clientes.exception.BadRequestExceptionHandler;
 import Api_Rest.Pedidos.clientes.exception.ResourceExceptionHandler;
 import Api_Rest.Pedidos.clientes.repository.ProdutoRepository;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +44,15 @@ public class ProdutoService {
 
     public List<Produto> findAllProduto(){
         return produtoRepository.findAll();
+    }
+
+    public List<Produto> findByStatus(StatusPedido statusPedido){
+
+        if (statusPedido == null){
+            return produtoRepository.findAll();
+        }
+
+       return produtoRepository.findByStatusPedido(statusPedido);
     }
 
     public Produto findByIdProduto(Long id){

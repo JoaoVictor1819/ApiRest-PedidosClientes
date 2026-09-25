@@ -6,6 +6,7 @@ import Api_Rest.Pedidos.clientes.entity.Cliente;
 import Api_Rest.Pedidos.clientes.exception.BadRequestExceptionHandler;
 import Api_Rest.Pedidos.clientes.exception.ResourceExceptionHandler;
 import Api_Rest.Pedidos.clientes.repository.ClienteRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -3,6 +3,7 @@ package Api_Rest.Pedidos.clientes.controller;
 
 import Api_Rest.Pedidos.clientes.dto.ProdutoDto;
 import Api_Rest.Pedidos.clientes.entity.Produto;
+import Api_Rest.Pedidos.clientes.entity.StatusPedido;
 import Api_Rest.Pedidos.clientes.service.ProdutoService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -32,6 +33,12 @@ public class ProdutoController {
     @GetMapping
     public ResponseEntity<List<Produto>> listarProdutos(){
         var produto = produtoService.findAllProduto();
+        return ResponseEntity.status(HttpStatus.OK).body(produto);
+    }
+
+    @GetMapping("/status_pedidos")
+    public ResponseEntity<List<Produto>> listarStatusPedidos(@RequestParam (required = false) StatusPedido statusPedido){
+        List<Produto> produto = produtoService.findByStatus(statusPedido);
         return ResponseEntity.status(HttpStatus.OK).body(produto);
     }
 

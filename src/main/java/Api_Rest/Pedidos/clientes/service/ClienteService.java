@@ -2,11 +2,14 @@ package Api_Rest.Pedidos.clientes.service;
 
 
 import Api_Rest.Pedidos.clientes.dto.ClienteDto;
+import Api_Rest.Pedidos.clientes.dto.ProdutoDto;
+import Api_Rest.Pedidos.clientes.dto.ProdutoResumoDto;
 import Api_Rest.Pedidos.clientes.entity.Cliente;
+import Api_Rest.Pedidos.clientes.entity.TiposPamentos;
 import Api_Rest.Pedidos.clientes.exception.BadRequestExceptionHandler;
 import Api_Rest.Pedidos.clientes.exception.ResourceExceptionHandler;
 import Api_Rest.Pedidos.clientes.repository.ClienteRepository;
-import lombok.RequiredArgsConstructor;
+import Api_Rest.Pedidos.clientes.repository.ProdutoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,9 +18,11 @@ import java.util.List;
 public class ClienteService {
 
     ClienteRepository clienteRepository;
+    ProdutoRepository produtoRepository;
 
-    public ClienteService(ClienteRepository clienteRepository) {
+    public ClienteService(ClienteRepository clienteRepository, ProdutoRepository produtoRepository) {
         this.clienteRepository = clienteRepository;
+        this.produtoRepository = produtoRepository;
     }
 
     public void saveCliente(ClienteDto dto){
@@ -28,15 +33,31 @@ public class ClienteService {
             throw new BadRequestExceptionHandler("Este email de cliente ja existe!");
         }
 
+
         clienteRepository.save(Cliente.builder()
                 .name(dto.getName())
                 .email(dto.getEmail())
+                .tiposPamentos(dto.getTiposPamentoPadrao())
                 .build());
 
     }
 
-    public List<Cliente> findAllCliente(){
-        return  clienteRepository.findAll();
+
+    public List<ClienteDto> findAllCliente(){
+        List<Cliente> clientes = clienteRepository.findAll();
+
+        return clientes.stream()
+                .map(this::toResponseDto)
+                .toList();
+
+    }
+
+    private ClienteDto toResponseDto(Cliente cliente){
+        List<ProdutoResumoDto> produtoResumoDtos = cliente.getProdutos().stream()
+                .map(p -> new ProdutoResumoDto(p.getId(), p.getNome(), p.getDescricao(), p.getPreco(), p.getStatusPedido()))
+                .toList();
+        
+        return new ClienteDto(cliente.getId(), cliente.getName(),cliente.getEmail(), cliente.getTiposPamentos(), produtoResumoDtos);
     }
 
     public List<Cliente> findByName(String name){
@@ -47,9 +68,19 @@ public class ClienteService {
         return clienteRepository.findByNameContainingIgnoreCase(name);
     }
 
-    public Cliente findClienteById(Long id){
-        return clienteRepository.findById(id)
-                .orElseThrow(() -> new ResourceExceptionHandler("Cliente id: "+ id + "Not Found!"));
+    public ClienteDto findClienteById(Long id){
+        Cliente cliente = clienteRepository.findById(id)
+                .orElseThrow(() -> new ResourceExceptionHandler("Cliente nao encontrado"));
+
+        List<ProdutoResumoDto> produtoResumoDtos = cliente.getProdutos().stream()
+                .map(p -> new ProdutoResumoDto(p.getId(), p.getNome(), p.getDescricao(), p.getPreco(), p.getStatusPedido()))
+                .toList();
+
+        return new ClienteDto(cliente.getId(),cliente.getName(), cliente.getEmail(), cliente.getTiposPamentos(), produtoResumoDtos);
+    }
+
+    public List<Cliente> findByPagamento(TiposPamentos tiposPamentos){
+        return clienteRepository.findByTiposPamentos(tiposPamentos);
     }
 
     public void deleteCliente(Long id){

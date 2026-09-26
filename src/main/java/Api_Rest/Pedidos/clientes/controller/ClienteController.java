@@ -3,10 +3,9 @@ package Api_Rest.Pedidos.clientes.controller;
 
 import Api_Rest.Pedidos.clientes.dto.ClienteDto;
 import Api_Rest.Pedidos.clientes.entity.Cliente;
+import Api_Rest.Pedidos.clientes.entity.TiposPamentos;
 import Api_Rest.Pedidos.clientes.service.ClienteService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -28,21 +27,27 @@ public class ClienteController {
 
     @PostMapping
     @Operation(summary = "Metodo Salvar", description = "Metodo feito para cadastrar clientes!")
-    public ResponseEntity save(@RequestBody @Valid ClienteDto dto) {
+    public ResponseEntity save(@Valid @RequestBody ClienteDto dto) {
         clienteService.saveCliente(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body("Criado com suscesso!");
     }
 
     @GetMapping
     @Operation(summary = "Metodo Pesquisa", description = "Metodo feito para ver todos os clientes!")
-    public ResponseEntity<List<Cliente>> findAll() {
+    public ResponseEntity<List<ClienteDto>> findAll() {
         var cliente = clienteService.findAllCliente();
+        return ResponseEntity.status(HttpStatus.OK).body(cliente);
+    }
+
+    @GetMapping("/Tipos_Pagamentos")
+    public ResponseEntity<List<Cliente>> findByPagamento(TiposPamentos tiposPamentos){
+        var cliente = clienteService.findByPagamento(tiposPamentos);
         return ResponseEntity.status(HttpStatus.OK).body(cliente);
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Metodo Pesquisa Filtrada", description = "Metodo feito para ver clientes por id!")
-    public ResponseEntity<Cliente> findById(@PathVariable Long id) {
+    public ResponseEntity<ClienteDto> findById(@PathVariable Long id) {
         var cliente = clienteService.findClienteById(id);
         return ResponseEntity.status(HttpStatus.OK).body(cliente);
     }

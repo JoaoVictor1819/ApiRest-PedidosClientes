@@ -2,6 +2,7 @@ package Api_Rest.Pedidos.clientes.controller;
 
 
 import Api_Rest.Pedidos.clientes.dto.ProdutoDto;
+import Api_Rest.Pedidos.clientes.dto.ProdutoResumoDto;
 import Api_Rest.Pedidos.clientes.entity.Produto;
 import Api_Rest.Pedidos.clientes.entity.StatusPedido;
 import Api_Rest.Pedidos.clientes.service.ProdutoService;
@@ -49,7 +50,7 @@ public class ProdutoController {
     }
 
     @PutMapping("/{id}")
-    public  ResponseEntity<Produto> atualizarProduto(@PathVariable @Valid Long id, @RequestBody @Valid ProdutoDto dto){
+    public  ResponseEntity<Produto> atualizarProduto(@PathVariable @Valid Long id, @RequestBody @Valid ProdutoResumoDto dto){
         var produto = produtoService.updateProduto(id, dto);
         return ResponseEntity.status(HttpStatus.OK).body(produto);
     }

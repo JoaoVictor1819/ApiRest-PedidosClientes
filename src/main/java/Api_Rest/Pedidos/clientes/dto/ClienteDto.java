@@ -1,9 +1,10 @@
 package Api_Rest.Pedidos.clientes.dto;
 
-import jakarta.persistence.Entity;
-import jakarta.validation.constraints.Email;
+import Api_Rest.Pedidos.clientes.entity.TiposPamentos;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -11,7 +12,9 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 @Builder
-public class ClienteDto{
+public class ClienteDto {
+
+        private Long id;
 
         @NotBlank
         private String name;
@@ -19,5 +22,8 @@ public class ClienteDto{
         @NotBlank
         private String email;
 
+        private TiposPamentos tiposPamentoPadrao;
+
+        private List<ProdutoResumoDto> produtosResumoDtos;
 
 }

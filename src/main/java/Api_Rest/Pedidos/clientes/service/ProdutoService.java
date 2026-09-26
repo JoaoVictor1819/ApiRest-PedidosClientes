@@ -2,10 +2,13 @@ package Api_Rest.Pedidos.clientes.service;
 
 
 import Api_Rest.Pedidos.clientes.dto.ProdutoDto;
+import Api_Rest.Pedidos.clientes.dto.ProdutoResumoDto;
+import Api_Rest.Pedidos.clientes.entity.Cliente;
 import Api_Rest.Pedidos.clientes.entity.Produto;
 import Api_Rest.Pedidos.clientes.entity.StatusPedido;
 import Api_Rest.Pedidos.clientes.exception.BadRequestExceptionHandler;
 import Api_Rest.Pedidos.clientes.exception.ResourceExceptionHandler;
+import Api_Rest.Pedidos.clientes.repository.ClienteRepository;
 import Api_Rest.Pedidos.clientes.repository.ProdutoRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -18,27 +21,30 @@ import java.util.List;
 public class ProdutoService {
 
     ProdutoRepository produtoRepository;
+    ClienteRepository clienteRepository;
 
-    public ProdutoService(ProdutoRepository produtoRepository) {
+
+    public ProdutoService(ProdutoRepository produtoRepository, ClienteRepository clienteRepository) {
         this.produtoRepository = produtoRepository;
+        this.clienteRepository = clienteRepository;
     }
 
 
+
     @Transactional
-    public void saveProduto(ProdutoDto dto){
-       Produto produto = produtoRepository.findByNome(dto.getNome())
-               .orElse(null);
+    public Produto saveProduto(ProdutoDto dto){
+        Cliente cliente = clienteRepository.findById(dto.getClienteId())
+                        .orElseThrow(() -> new ResourceExceptionHandler("Este cliente nao esta cadastrado!"));
 
-       if (produto != null){
-           throw new BadRequestExceptionHandler("Produto ja foi cadastrado!");
-       }
 
-       produtoRepository.save(Produto.builder()
-               .nome(dto.getNome())
-               .preco(dto.getPreco())
-               .descricao(dto.getDescricao())
-               .statusPedido(dto.getStatusPedido())
-               .build());
+       Produto produto = new Produto();
+        produto.setNome(dto.getNome());
+        produto.setPreco(dto.getPreco());
+        produto.setDescricao(dto.getDescricao());
+        produto.setStatusPedido(dto.getStatusPedido());
+        produto.setCliente(cliente);
+
+        return produtoRepository.save(produto);
 
     }
 
@@ -49,7 +55,7 @@ public class ProdutoService {
     public List<Produto> findByStatus(StatusPedido statusPedido){
 
         if (statusPedido == null){
-           throw new BadRequestExceptionHandler("Nao existe nenhum produto com este status cadastrado!");
+            return produtoRepository.findAll();
         }
 
        return produtoRepository.findByStatusPedido(statusPedido);
@@ -67,7 +73,7 @@ public class ProdutoService {
 
 
     @Transactional
-    public Produto updateProduto(Long id, ProdutoDto dto){
+    public Produto updateProduto(Long id, ProdutoResumoDto dto){
         produtoRepository.findById(id)
                 .orElseThrow(() -> new ResourceExceptionHandler("Product Id: "+ id +" Not Found"));
 

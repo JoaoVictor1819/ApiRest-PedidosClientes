@@ -1,5 +1,6 @@
 package Api_Rest.Pedidos.clientes.dto;
 
+import Api_Rest.Pedidos.clientes.entity.Cliente;
 import Api_Rest.Pedidos.clientes.entity.StatusPedido;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
@@ -19,6 +20,7 @@ import java.math.BigDecimal;
 @Builder
 public class ProdutoDto{
 
+
          @NotBlank(message = "O nome do produto e obrigatorio")
          private String nome;
 
@@ -29,6 +31,8 @@ public class ProdutoDto{
          @NotNull(message = "O preco nao poder receber um valo null")
          @DecimalMin(value = "0.01", inclusive = false, message = "O valor tem que ser maior que zero")
          private BigDecimal preco;
+
+         private Long clienteId;
 
          private StatusPedido statusPedido;
 }

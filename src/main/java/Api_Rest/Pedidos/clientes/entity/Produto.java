@@ -1,6 +1,7 @@
 package Api_Rest.Pedidos.clientes.entity;
 
 import Api_Rest.Pedidos.clientes.dto.ProdutoDto;
+import Api_Rest.Pedidos.clientes.dto.ProdutoResumoDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,13 +30,13 @@ public class Produto {
     private BigDecimal preco;
 
     @Enumerated(EnumType.STRING)
-    StatusPedido statusPedido;
+    private StatusPedido statusPedido;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    public Produto(ProdutoDto dto) {
+    public Produto(ProdutoResumoDto dto) {
         this.nome = dto.getNome();
         this.preco = dto.getPreco();
         this.descricao = dto.getDescricao();

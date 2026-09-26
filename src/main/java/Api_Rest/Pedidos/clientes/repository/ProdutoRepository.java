@@ -15,6 +15,7 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 
     List<Produto> findByStatusPedido(StatusPedido statusPedido);
 
+
     @Query(value = """
     SELECT p
     FROM Produto p WHERE p.nome = :nome

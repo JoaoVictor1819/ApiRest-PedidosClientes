@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static org.hibernate.Hibernate.map;
+
 @Service
 public class ProdutoService {
 
@@ -48,8 +50,17 @@ public class ProdutoService {
 
     }
 
-    public List<Produto> findAllProduto(){
-        return produtoRepository.findAll();
+    public List<ProdutoDto> findAllProduto(){
+        List<Produto> produtos = produtoRepository.findAll();
+
+        return produtos.stream()
+                .map(this::toResponseDto)
+                .toList();
+
+    }
+
+    private ProdutoDto toResponseDto(Produto produto){
+        return new ProdutoDto(produto.getDescricao(), produto.getNome(), produto.getPreco(), produto.getId(), produto.getStatusPedido() );
     }
 
     public List<Produto> findByStatus(StatusPedido statusPedido){
@@ -61,9 +72,11 @@ public class ProdutoService {
        return produtoRepository.findByStatusPedido(statusPedido);
     }
 
-    public Produto findByIdProduto(Long id){
-        return produtoRepository.findById(id)
-                .orElseThrow(() -> new ResourceExceptionHandler("Product Id: "+ id +" Not Found"));
+    public ProdutoDto findByIdProduto(Long id) {
+        Produto produto = produtoRepository.findById(id)
+                .orElseThrow(() -> new ResourceExceptionHandler("Este id do produto nao existe"));
+
+        return new ProdutoDto(produto.getDescricao(), produto.getNome(), produto.getPreco(), produto.getId(), produto.getStatusPedido() );
     }
 
 

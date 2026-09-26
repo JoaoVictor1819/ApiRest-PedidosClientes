@@ -32,7 +32,7 @@ public class ProdutoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Produto>> listarProdutos(){
+    public ResponseEntity<List<ProdutoDto>> listarProdutos(){
         var produto = produtoService.findAllProduto();
         return ResponseEntity.status(HttpStatus.OK).body(produto);
     }
@@ -44,7 +44,7 @@ public class ProdutoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Produto> buscarProduto(@PathVariable Long id){
+    public ResponseEntity<ProdutoDto> buscarProduto(@PathVariable Long id){
         var produto = produtoService.findByIdProduto(id);
         return ResponseEntity.status(HttpStatus.OK).body(produto);
     }

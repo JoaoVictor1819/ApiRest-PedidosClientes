@@ -40,7 +40,7 @@ public class ClienteController {
     }
 
     @GetMapping("/Tipos_Pagamentos")
-    public ResponseEntity<List<Cliente>> findByPagamento(TiposPamentos tiposPamentos){
+    public ResponseEntity<List<ClienteDto>> findByPagamento(TiposPamentos tiposPamentos){
         var cliente = clienteService.findByPagamento(tiposPamentos);
         return ResponseEntity.status(HttpStatus.OK).body(cliente);
     }

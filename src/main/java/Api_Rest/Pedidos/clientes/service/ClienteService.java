@@ -42,7 +42,6 @@ public class ClienteService {
 
     }
 
-
     public List<ClienteDto> findAllCliente(){
         List<Cliente> clientes = clienteRepository.findAll();
 
@@ -79,8 +78,12 @@ public class ClienteService {
         return new ClienteDto(cliente.getId(),cliente.getName(), cliente.getEmail(), cliente.getTiposPamentos(), produtoResumoDtos);
     }
 
-    public List<Cliente> findByPagamento(TiposPamentos tiposPamentos){
-        return clienteRepository.findByTiposPamentos(tiposPamentos);
+    public List<ClienteDto> findByPagamento(TiposPamentos tiposPamentos){
+        List<Cliente> clientes = clienteRepository.findByTiposPamentos(tiposPamentos);
+
+        return  clientes.stream()
+                .map(this::toResponseDto)
+                .toList();
     }
 
     public void deleteCliente(Long id){

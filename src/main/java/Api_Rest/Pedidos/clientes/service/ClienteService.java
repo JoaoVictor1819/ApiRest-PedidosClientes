@@ -59,12 +59,12 @@ public class ClienteService {
         return new ClienteDto(cliente.getId(), cliente.getName(),cliente.getEmail(), cliente.getTiposPamentos(), produtoResumoDtos);
     }
 
-    public List<Cliente> findByName(String name){
-        if (name == null || name.isEmpty()){
-            return clienteRepository.findAll();
-        }
+    public List<ClienteDto> findByName(String name){
+        List<Cliente> clientesNome = clienteRepository.findByNameContainingIgnoreCase(name);
 
-        return clienteRepository.findByNameContainingIgnoreCase(name);
+        return clientesNome.stream()
+                .map(this::toResponseDto)
+                .toList();
     }
 
     public ClienteDto findClienteById(Long id){
@@ -95,10 +95,10 @@ public class ClienteService {
     }
 
     public Cliente updateCliente(Long id, ClienteDto dto){
-        clienteRepository.findById(id)
+        Cliente cliente = clienteRepository.findById(id)
                 .orElseThrow(() -> new ResourceExceptionHandler("Cliente id: "+ id + "Not Found!"));
 
-        var cliente = new Cliente(dto);
+
         cliente.setName(dto.getName());
         cliente.setEmail(dto.getEmail());
 

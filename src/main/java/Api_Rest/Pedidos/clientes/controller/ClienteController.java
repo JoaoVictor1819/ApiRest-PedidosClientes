@@ -53,8 +53,8 @@ public class ClienteController {
     }
 
     @GetMapping("/name")
-    private ResponseEntity<List<Cliente>> findByName(@RequestParam (required = false )String name) {
-        List<Cliente> cliente = clienteService.findByName(name);
+    private ResponseEntity<List<ClienteDto>> findByName(@RequestParam (required = false )String name) {
+        List<ClienteDto> cliente = clienteService.findByName(name);
         return ResponseEntity.status(HttpStatus.OK).body(cliente);
     }
 

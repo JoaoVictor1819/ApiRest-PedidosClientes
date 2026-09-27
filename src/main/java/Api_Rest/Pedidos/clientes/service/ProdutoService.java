@@ -1,23 +1,18 @@
 package Api_Rest.Pedidos.clientes.service;
 
 
-import Api_Rest.Pedidos.clientes.dto.ProdutoDto;
-import Api_Rest.Pedidos.clientes.dto.ProdutoResumoDto;
-import Api_Rest.Pedidos.clientes.entity.Cliente;
-import Api_Rest.Pedidos.clientes.entity.Produto;
-import Api_Rest.Pedidos.clientes.entity.StatusPedido;
-import Api_Rest.Pedidos.clientes.exception.BadRequestExceptionHandler;
+import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoRequestDto;
+import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoResumoDto;
+import Api_Rest.Pedidos.clientes.entity.cliente.Cliente;
+import Api_Rest.Pedidos.clientes.entity.produto.Produto;
+import Api_Rest.Pedidos.clientes.entity.produto.StatusPedido;
 import Api_Rest.Pedidos.clientes.exception.ResourceExceptionHandler;
 import Api_Rest.Pedidos.clientes.repository.ClienteRepository;
 import Api_Rest.Pedidos.clientes.repository.ProdutoRepository;
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
-import org.apache.coyote.BadRequestException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
-import static org.hibernate.Hibernate.map;
 
 @Service
 public class ProdutoService {
@@ -34,7 +29,7 @@ public class ProdutoService {
 
 
     @Transactional
-    public Produto saveProduto(ProdutoDto dto){
+    public Produto saveProduto(ProdutoRequestDto dto){
         Cliente cliente = clienteRepository.findById(dto.getClienteId())
                         .orElseThrow(() -> new ResourceExceptionHandler("Este cliente nao esta cadastrado!"));
 
@@ -50,7 +45,7 @@ public class ProdutoService {
 
     }
 
-    public List<ProdutoDto> findAllProduto(){
+    public List<ProdutoRequestDto> findAllProduto(){
         List<Produto> produtos = produtoRepository.findAll();
 
         return produtos.stream()
@@ -59,8 +54,8 @@ public class ProdutoService {
 
     }
 
-    private ProdutoDto toResponseDto(Produto produto){
-        return new ProdutoDto(produto.getDescricao(), produto.getNome(), produto.getPreco(), produto.getId(), produto.getStatusPedido() );
+    private ProdutoRequestDto toResponseDto(Produto produto){
+        return new ProdutoRequestDto(produto.getDescricao(), produto.getNome(), produto.getPreco(), produto.getId(), produto.getStatusPedido() );
     }
 
     public List<Produto> findByStatus(StatusPedido statusPedido){
@@ -72,11 +67,11 @@ public class ProdutoService {
        return produtoRepository.findByStatusPedido(statusPedido);
     }
 
-    public ProdutoDto findByIdProduto(Long id) {
+    public ProdutoRequestDto findByIdProduto(Long id) {
         Produto produto = produtoRepository.findById(id)
                 .orElseThrow(() -> new ResourceExceptionHandler("Este id do produto nao existe"));
 
-        return new ProdutoDto(produto.getDescricao(), produto.getNome(), produto.getPreco(), produto.getId(), produto.getStatusPedido() );
+        return new ProdutoRequestDto(produto.getDescricao(), produto.getNome(), produto.getPreco(), produto.getId(), produto.getStatusPedido() );
     }
 
 

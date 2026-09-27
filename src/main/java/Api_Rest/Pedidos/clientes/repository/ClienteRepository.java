@@ -1,8 +1,7 @@
 package Api_Rest.Pedidos.clientes.repository;
 
-import Api_Rest.Pedidos.clientes.entity.Cliente;
-import Api_Rest.Pedidos.clientes.entity.StatusPedido;
-import Api_Rest.Pedidos.clientes.entity.TiposPamentos;
+import Api_Rest.Pedidos.clientes.entity.cliente.Cliente;
+import Api_Rest.Pedidos.clientes.entity.cliente.TiposPamentos;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

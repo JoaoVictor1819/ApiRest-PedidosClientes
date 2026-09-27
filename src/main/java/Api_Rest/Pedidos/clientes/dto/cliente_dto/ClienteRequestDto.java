@@ -1,10 +1,9 @@
-package Api_Rest.Pedidos.clientes.dto;
+package Api_Rest.Pedidos.clientes.dto.cliente_dto;
 
-import Api_Rest.Pedidos.clientes.entity.TiposPamentos;
+import Api_Rest.Pedidos.clientes.entity.cliente.TiposPamentos;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
-
-import java.util.List;
 
 @Getter
 @Setter
@@ -12,18 +11,17 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 @Builder
-public class ClienteDto {
+public class ClienteRequestDto {
 
-        private Long id;
 
         @NotBlank
         private String name;
 
         @NotBlank
+        @Email
         private String email;
 
         private TiposPamentos tiposPamentoPadrao;
 
-        private List<ProdutoResumoDto> produtosResumoDtos;
 
 }

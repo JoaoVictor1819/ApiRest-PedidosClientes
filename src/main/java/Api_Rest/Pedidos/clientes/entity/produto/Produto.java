@@ -1,7 +1,7 @@
-package Api_Rest.Pedidos.clientes.entity;
+package Api_Rest.Pedidos.clientes.entity.produto;
 
-import Api_Rest.Pedidos.clientes.dto.ProdutoDto;
-import Api_Rest.Pedidos.clientes.dto.ProdutoResumoDto;
+import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoResumoDto;
+import Api_Rest.Pedidos.clientes.entity.cliente.Cliente;
 import jakarta.persistence.*;
 import lombok.*;
 

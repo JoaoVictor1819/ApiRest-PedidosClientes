@@ -1,4 +1,4 @@
-package Api_Rest.Pedidos.clientes.entity;
+package Api_Rest.Pedidos.clientes.entity.produto;
 
 public enum StatusPedido {
     ENTREGUE,

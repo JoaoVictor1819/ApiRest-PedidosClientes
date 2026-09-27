@@ -1,14 +1,12 @@
-package Api_Rest.Pedidos.clientes.dto;
+package Api_Rest.Pedidos.clientes.dto.produto_dto;
 
-import Api_Rest.Pedidos.clientes.entity.Cliente;
-import Api_Rest.Pedidos.clientes.entity.StatusPedido;
+import Api_Rest.Pedidos.clientes.entity.produto.StatusPedido;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
-import java.io.Serial;
 import java.math.BigDecimal;
 
 
@@ -18,7 +16,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @ToString
 @Builder
-public class ProdutoDto{
+public class ProdutoRequestDto {
 
 
          @NotBlank(message = "O nome do produto e obrigatorio")

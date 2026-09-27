@@ -1,7 +1,7 @@
 package Api_Rest.Pedidos.clientes.repository;
 
-import Api_Rest.Pedidos.clientes.entity.Produto;
-import Api_Rest.Pedidos.clientes.entity.StatusPedido;
+import Api_Rest.Pedidos.clientes.entity.produto.Produto;
+import Api_Rest.Pedidos.clientes.entity.produto.StatusPedido;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.NativeQuery;
 import org.springframework.data.jpa.repository.Query;

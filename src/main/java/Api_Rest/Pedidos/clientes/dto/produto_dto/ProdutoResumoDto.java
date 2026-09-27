@@ -1,7 +1,7 @@
-package Api_Rest.Pedidos.clientes.dto;
+package Api_Rest.Pedidos.clientes.dto.produto_dto;
 
 
-import Api_Rest.Pedidos.clientes.entity.StatusPedido;
+import Api_Rest.Pedidos.clientes.entity.produto.StatusPedido;
 import lombok.*;
 
 import java.math.BigDecimal;

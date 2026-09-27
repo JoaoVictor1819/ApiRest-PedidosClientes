@@ -1,10 +1,10 @@
 package Api_Rest.Pedidos.clientes.controller;
 
 
-import Api_Rest.Pedidos.clientes.dto.ProdutoDto;
-import Api_Rest.Pedidos.clientes.dto.ProdutoResumoDto;
-import Api_Rest.Pedidos.clientes.entity.Produto;
-import Api_Rest.Pedidos.clientes.entity.StatusPedido;
+import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoRequestDto;
+import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoResumoDto;
+import Api_Rest.Pedidos.clientes.entity.produto.Produto;
+import Api_Rest.Pedidos.clientes.entity.produto.StatusPedido;
 import Api_Rest.Pedidos.clientes.service.ProdutoService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -26,13 +26,13 @@ public class ProdutoController {
     }
 
     @PostMapping
-    public ResponseEntity cadastrarProduto(@RequestBody @Valid ProdutoDto dto){
+    public ResponseEntity cadastrarProduto(@RequestBody @Valid ProdutoRequestDto dto){
         produtoService.saveProduto(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body("Produto cadastrado com suscesso!");
     }
 
     @GetMapping
-    public ResponseEntity<List<ProdutoDto>> listarProdutos(){
+    public ResponseEntity<List<ProdutoRequestDto>> listarProdutos(){
         var produto = produtoService.findAllProduto();
         return ResponseEntity.status(HttpStatus.OK).body(produto);
     }
@@ -44,7 +44,7 @@ public class ProdutoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProdutoDto> buscarProduto(@PathVariable Long id){
+    public ResponseEntity<ProdutoRequestDto> buscarProduto(@PathVariable Long id){
         var produto = produtoService.findByIdProduto(id);
         return ResponseEntity.status(HttpStatus.OK).body(produto);
     }

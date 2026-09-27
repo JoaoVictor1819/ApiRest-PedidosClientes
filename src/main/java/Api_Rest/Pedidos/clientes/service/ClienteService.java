@@ -1,11 +1,11 @@
 package Api_Rest.Pedidos.clientes.service;
 
 
-import Api_Rest.Pedidos.clientes.dto.ClienteDto;
-import Api_Rest.Pedidos.clientes.dto.ProdutoDto;
-import Api_Rest.Pedidos.clientes.dto.ProdutoResumoDto;
-import Api_Rest.Pedidos.clientes.entity.Cliente;
-import Api_Rest.Pedidos.clientes.entity.TiposPamentos;
+import Api_Rest.Pedidos.clientes.dto.cliente_dto.ClienteRequestDto;
+import Api_Rest.Pedidos.clientes.dto.cliente_dto.ClienteResponseDto;
+import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoResumoDto;
+import Api_Rest.Pedidos.clientes.entity.cliente.Cliente;
+import Api_Rest.Pedidos.clientes.entity.cliente.TiposPamentos;
 import Api_Rest.Pedidos.clientes.exception.BadRequestExceptionHandler;
 import Api_Rest.Pedidos.clientes.exception.ResourceExceptionHandler;
 import Api_Rest.Pedidos.clientes.repository.ClienteRepository;
@@ -25,7 +25,7 @@ public class ClienteService {
         this.produtoRepository = produtoRepository;
     }
 
-    public void saveCliente(ClienteDto dto){
+    public void saveCliente(ClienteRequestDto dto){
         Cliente cliente = clienteRepository.findByEmail(dto.getEmail())
                 .orElse(null);
 
@@ -42,7 +42,7 @@ public class ClienteService {
 
     }
 
-    public List<ClienteDto> findAllCliente(){
+    public List<ClienteResponseDto> findAllCliente(){
         List<Cliente> clientes = clienteRepository.findAll();
 
         return clientes.stream()
@@ -51,15 +51,15 @@ public class ClienteService {
 
     }
 
-    private ClienteDto toResponseDto(Cliente cliente){
+    private ClienteResponseDto toResponseDto(Cliente cliente){
         List<ProdutoResumoDto> produtoResumoDtos = cliente.getProdutos().stream()
                 .map(p -> new ProdutoResumoDto(p.getId(), p.getNome(), p.getDescricao(), p.getPreco(), p.getStatusPedido()))
                 .toList();
         
-        return new ClienteDto(cliente.getId(), cliente.getName(),cliente.getEmail(), cliente.getTiposPamentos(), produtoResumoDtos);
+        return new ClienteResponseDto(cliente.getId(), cliente.getName(),cliente.getEmail(), cliente.getTiposPamentos(), produtoResumoDtos);
     }
 
-    public List<ClienteDto> findByName(String name){
+    public List<ClienteResponseDto> findByName(String name){
         List<Cliente> clientesNome = clienteRepository.findByNameContainingIgnoreCase(name);
 
         return clientesNome.stream()
@@ -67,7 +67,7 @@ public class ClienteService {
                 .toList();
     }
 
-    public ClienteDto findClienteById(Long id){
+    public ClienteResponseDto findClienteById(Long id){
         Cliente cliente = clienteRepository.findById(id)
                 .orElseThrow(() -> new ResourceExceptionHandler("Cliente nao encontrado"));
 
@@ -75,10 +75,10 @@ public class ClienteService {
                 .map(p -> new ProdutoResumoDto(p.getId(), p.getNome(), p.getDescricao(), p.getPreco(), p.getStatusPedido()))
                 .toList();
 
-        return new ClienteDto(cliente.getId(),cliente.getName(), cliente.getEmail(), cliente.getTiposPamentos(), produtoResumoDtos);
+        return new ClienteResponseDto(cliente.getId(),cliente.getName(), cliente.getEmail(), cliente.getTiposPamentos(), produtoResumoDtos);
     }
 
-    public List<ClienteDto> findByPagamento(TiposPamentos tiposPamentos){
+    public List<ClienteResponseDto> findByPagamento(TiposPamentos tiposPamentos){
         List<Cliente> clientes = clienteRepository.findByTiposPamentos(tiposPamentos);
 
         return  clientes.stream()
@@ -94,14 +94,10 @@ public class ClienteService {
         clienteRepository.deleteById(id);
     }
 
-    public Cliente updateCliente(Long id, ClienteDto dto){
+    public void updateCliente(Long id, ClienteRequestDto dto){
         Cliente cliente = clienteRepository.findById(id)
                 .orElseThrow(() -> new ResourceExceptionHandler("Cliente id: "+ id + "Not Found!"));
 
 
-        cliente.setName(dto.getName());
-        cliente.setEmail(dto.getEmail());
-
-        return clienteRepository.save(cliente);
     }
 }

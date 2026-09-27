@@ -1,9 +1,9 @@
 package Api_Rest.Pedidos.clientes.controller;
 
 
-import Api_Rest.Pedidos.clientes.dto.ClienteDto;
-import Api_Rest.Pedidos.clientes.entity.Cliente;
-import Api_Rest.Pedidos.clientes.entity.TiposPamentos;
+import Api_Rest.Pedidos.clientes.dto.cliente_dto.ClienteRequestDto;
+import Api_Rest.Pedidos.clientes.dto.cliente_dto.ClienteResponseDto;
+import Api_Rest.Pedidos.clientes.entity.cliente.TiposPamentos;
 import Api_Rest.Pedidos.clientes.service.ClienteService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,43 +27,43 @@ public class ClienteController {
 
     @PostMapping
     @Operation(summary = "Metodo Salvar", description = "Metodo feito para cadastrar clientes!")
-    public ResponseEntity save(@Valid @RequestBody ClienteDto dto) {
+    public ResponseEntity save(@Valid @RequestBody ClienteRequestDto dto) {
         clienteService.saveCliente(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body("Criado com suscesso!");
     }
 
     @GetMapping
     @Operation(summary = "Metodo Pesquisa", description = "Metodo feito para ver todos os clientes!")
-    public ResponseEntity<List<ClienteDto>> findAll() {
+    public ResponseEntity<List<ClienteResponseDto>> findAll() {
         var cliente = clienteService.findAllCliente();
         return ResponseEntity.status(HttpStatus.OK).body(cliente);
     }
 
     @GetMapping("/Tipos_Pagamentos")
-    public ResponseEntity<List<ClienteDto>> findByPagamento(TiposPamentos tiposPamentos){
+    public ResponseEntity<List<ClienteResponseDto>> findByPagamento(TiposPamentos tiposPamentos){
         var cliente = clienteService.findByPagamento(tiposPamentos);
         return ResponseEntity.status(HttpStatus.OK).body(cliente);
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Metodo Pesquisa Filtrada", description = "Metodo feito para ver clientes por id!")
-    public ResponseEntity<ClienteDto> findById(@PathVariable Long id) {
+    public ResponseEntity<ClienteResponseDto> findById(@PathVariable Long id) {
         var cliente = clienteService.findClienteById(id);
         return ResponseEntity.status(HttpStatus.OK).body(cliente);
     }
 
     @GetMapping("/name")
-    private ResponseEntity<List<ClienteDto>> findByName(@RequestParam (required = false )String name) {
-        List<ClienteDto> cliente = clienteService.findByName(name);
+    private ResponseEntity<List<ClienteResponseDto>> findByName(@RequestParam (required = false )String name) {
+        List<ClienteResponseDto> cliente = clienteService.findByName(name);
         return ResponseEntity.status(HttpStatus.OK).body(cliente);
     }
 
 
     @PutMapping("/{id}")
     @Operation(summary = "Metodo Modificar", description = "Metodo feito para modificar cliente por id!")
-    public ResponseEntity<Cliente> updateCliente(@PathVariable @Valid Long id, @RequestBody @Valid ClienteDto dto) {
-        var cliente = clienteService.updateCliente(id, dto);
-        return ResponseEntity.status(HttpStatus.OK).body(cliente);
+    public ResponseEntity updateCliente(@PathVariable @Valid Long id, @RequestBody @Valid ClienteRequestDto dto) {
+        clienteService.updateCliente(id, dto);
+        return ResponseEntity.status(HttpStatus.OK).body("Dado atualizado com sucesso");
     }
 
     @DeleteMapping("/{id}")

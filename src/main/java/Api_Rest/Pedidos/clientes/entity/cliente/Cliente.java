@@ -1,7 +1,8 @@
-package Api_Rest.Pedidos.clientes.entity;
+package Api_Rest.Pedidos.clientes.entity.cliente;
 
 
-import Api_Rest.Pedidos.clientes.dto.ClienteDto;
+import Api_Rest.Pedidos.clientes.dto.cliente_dto.ClienteRequestDto;
+import Api_Rest.Pedidos.clientes.entity.produto.Produto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -32,8 +33,9 @@ public class Cliente {
     @OneToMany(mappedBy = "cliente")
     private Set<Produto> produtos = new HashSet<>();
 
-    public Cliente(ClienteDto dto) {
+    public Cliente(ClienteRequestDto dto) {
         this.name = dto.getName();
         this.email = dto.getEmail();
+        this.tiposPamentos = dto.getTiposPamentoPadrao();
     }
 }

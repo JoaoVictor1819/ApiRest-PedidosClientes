@@ -30,7 +30,8 @@ public class Cliente {
 
     private TiposPamentos tiposPamentos;
 
-    @OneToMany(mappedBy = "cliente")
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    //Classe nao proprietaria| Relacionamento de um para muintos que sera consumido pela entidade que leva @ManyToOne
     private Set<Produto> produtos = new HashSet<>();
 
     public Cliente(ClienteRequestDto dto) {

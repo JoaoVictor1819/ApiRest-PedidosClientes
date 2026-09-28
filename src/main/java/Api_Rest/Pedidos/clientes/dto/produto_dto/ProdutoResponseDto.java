@@ -25,8 +25,8 @@ public class ProdutoResponseDto {
     @Size(min = 1, max = 100)
     private String descricao;
 
-    @NotNull(message = "O preco nao poder receber um valo null")
-    @DecimalMin(value = "0.01", inclusive = false, message = "O valor tem que ser maior que zero")
+    @NotNull(message = "The price cannot be null.")
+    @DecimalMin(value = "0.01", inclusive = false, message = "The value must be greater than zero.")
     private BigDecimal preco;
 
     private StatusPedido statusPedido;

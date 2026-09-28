@@ -39,34 +39,36 @@ public class ClienteController {
         return ResponseEntity.status(HttpStatus.OK).body(cliente);
     }
 
-    @GetMapping("/Tipos_Pagamentos")
+    @GetMapping("/search/tipos_pagamentos")
+    @Operation(summary = "Filtar por tipo de pagamento", description = "Metodo que ver os pedidos feitos com cada tipo de pagamento")
     public ResponseEntity<List<ClienteResponseDto>> findByPagamento(TiposPamentos tiposPamentos){
         var cliente = clienteService.findByPagamento(tiposPamentos);
         return ResponseEntity.status(HttpStatus.OK).body(cliente);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/search/{id}")
     @Operation(summary = "Metodo Pesquisa Filtrada", description = "Metodo feito para ver clientes por id!")
     public ResponseEntity<ClienteResponseDto> findById(@PathVariable Long id) {
         var cliente = clienteService.findClienteById(id);
         return ResponseEntity.status(HttpStatus.OK).body(cliente);
     }
 
-    @GetMapping("/name")
+    @GetMapping("/search/name")
+    @Operation(summary = "Pesquisa por nome", description = "Pesquisa um usuario por nome do proprio")
     private ResponseEntity<List<ClienteResponseDto>> findByName(@RequestParam (required = false )String name) {
         List<ClienteResponseDto> cliente = clienteService.findByName(name);
         return ResponseEntity.status(HttpStatus.OK).body(cliente);
     }
 
 
-    @PutMapping("/{id}")
+    @PutMapping("/updates/{id}")
     @Operation(summary = "Metodo Modificar", description = "Metodo feito para modificar cliente por id!")
     public ResponseEntity updateCliente(@PathVariable @Valid Long id, @RequestBody @Valid ClienteRequestDto dto) {
         clienteService.updateCliente(id, dto);
         return ResponseEntity.status(HttpStatus.OK).body("Dado atualizado com sucesso");
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     @Operation(summary = "Metodo Deletar", description = "Metodo feito para deletar cliente por id!")
     public ResponseEntity deleteCliente(@PathVariable Long id) {
         clienteService.deleteCliente(id);

@@ -19,18 +19,20 @@ import java.math.BigDecimal;
 public class ProdutoRequestDto {
 
 
-         @NotBlank(message = "O nome do produto e obrigatorio")
+         @NotBlank(message = "The product name is mandatory.")
          private String nome;
 
          @NotBlank
          @Size(min = 1, max = 100)
          private String descricao;
 
-         @NotNull(message = "O preco nao poder receber um valo null")
-         @DecimalMin(value = "0.01", inclusive = false, message = "O valor tem que ser maior que zero")
+         @NotNull(message = "The price cannot be null.")
+         @DecimalMin(value = "0.01", inclusive = false, message = "The value must be greater than zero.")
          private BigDecimal preco;
 
+         @NotBlank(message = "Customer ID is mandatory.")
          private Long clienteId;
 
+         @NotBlank(message = "Enter the current status of the customer's order.")
          private StatusPedido statusPedido;
 }

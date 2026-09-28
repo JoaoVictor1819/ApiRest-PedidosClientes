@@ -46,13 +46,14 @@ public class ClienteService {
     public List<ClienteResponseDto> findAllCliente(){
         List<Cliente> clientes = clienteRepository.findAll();
 
+        // Converte List<Cliente> -> List<ClienteResponseDto>
         return clientes.stream()
-                .map(this::toResponseDto)
+                .map(this::toResponseDto)// -> Esta chamando o metodo que mapeia a entidade para dto
                 .toList();
 
     }
 
-    private ClienteResponseDto toResponseDto(Cliente cliente){
+    private ClienteResponseDto toResponseDto(Cliente cliente){ // Metodo que faz a convercao de entidade para o dto
         List<ProdutoResumoDto> produtoResumoDtos = cliente.getProdutos().stream()
                 .map(p -> new ProdutoResumoDto(p.getId(), p.getNome(), p.getDescricao(), p.getPreco(), p.getStatusPedido()))
                 .toList();
@@ -98,7 +99,7 @@ public class ClienteService {
 
     @Transactional
     public void updateCliente(Long id, ClienteRequestDto dto){
-        Cliente cliente = clienteRepository.findById(id)
+        clienteRepository.findById(id)
                 .orElseThrow(() -> new ResourceExceptionHandler("Client id: "+ id + "Not Found!"));
 
 
@@ -106,7 +107,7 @@ public class ClienteService {
                        .name(dto.getName())
                        .email(dto.getEmail())
                        .tiposPamentos(dto.getTiposPamentoPadrao())
-               .build());
+                        .build());
 
 
 

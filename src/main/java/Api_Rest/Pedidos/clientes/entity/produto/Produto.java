@@ -32,7 +32,8 @@ public class Produto {
     @Enumerated(EnumType.STRING)
     private StatusPedido statusPedido;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY) //Classe Proprietaria| Relacionamento de muintos para um,
+    // metodo responsevel por consumir os dados da entidade que esta levando @OneToMany que mantem a chave estrangeira
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 

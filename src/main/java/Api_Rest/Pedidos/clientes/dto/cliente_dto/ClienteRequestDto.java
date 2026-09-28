@@ -14,13 +14,14 @@ import lombok.*;
 public class ClienteRequestDto {
 
 
-        @NotBlank
+        @NotBlank(message = "The customer's name is mandatory.")
         private String name;
 
-        @NotBlank
-        @Email
+        @NotBlank(message = "The customer's email is mandatory.")
+        @Email(message = "Invalid email")
         private String email;
 
+        @NotBlank(message = "Select the payment method to be used as your default.")
         private TiposPamentos tiposPamentoPadrao;
 
 

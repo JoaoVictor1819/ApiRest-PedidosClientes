@@ -10,6 +10,7 @@ import Api_Rest.Pedidos.clientes.exception.BadRequestExceptionHandler;
 import Api_Rest.Pedidos.clientes.exception.ResourceExceptionHandler;
 import Api_Rest.Pedidos.clientes.repository.ClienteRepository;
 import Api_Rest.Pedidos.clientes.repository.ProdutoRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -94,9 +95,19 @@ public class ClienteService {
         clienteRepository.deleteById(id);
     }
 
+
+    @Transactional
     public void updateCliente(Long id, ClienteRequestDto dto){
         Cliente cliente = clienteRepository.findById(id)
                 .orElseThrow(() -> new ResourceExceptionHandler("Client id: "+ id + "Not Found!"));
+
+
+       clienteRepository.save(Cliente.builder()
+                       .name(dto.getName())
+                       .email(dto.getEmail())
+                       .tiposPamentos(dto.getTiposPamentoPadrao())
+               .build());
+
 
 
     }

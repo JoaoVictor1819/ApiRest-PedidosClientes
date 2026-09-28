@@ -25,7 +25,7 @@ public class Cliente {
     @Column(nullable = false)
     private String name;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = true)
     private String email;
 
     private TiposPamentos tiposPamentos;

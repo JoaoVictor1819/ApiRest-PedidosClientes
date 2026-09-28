@@ -1,6 +1,6 @@
 package Api_Rest.Pedidos.clientes.entity.produto;
 
-import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoResumoDto;
+import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoResponseDto;
 import Api_Rest.Pedidos.clientes.entity.cliente.Cliente;
 import jakarta.persistence.*;
 import lombok.*;
@@ -36,7 +36,7 @@ public class Produto {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    public Produto(ProdutoResumoDto dto) {
+    public Produto(ProdutoResponseDto dto) {
         this.nome = dto.getNome();
         this.preco = dto.getPreco();
         this.descricao = dto.getDescricao();

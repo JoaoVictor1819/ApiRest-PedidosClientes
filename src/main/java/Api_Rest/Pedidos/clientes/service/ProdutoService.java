@@ -31,7 +31,7 @@ public class ProdutoService {
     @Transactional
     public Produto saveProduto(ProdutoRequestDto dto){
         Cliente cliente = clienteRepository.findById(dto.getClienteId())
-                        .orElseThrow(() -> new ResourceExceptionHandler("Este cliente nao esta cadastrado!"));
+                        .orElseThrow(() -> new ResourceExceptionHandler("Client Not Found"));
 
 
        Produto produto = new Produto();
@@ -69,7 +69,7 @@ public class ProdutoService {
 
     public ProdutoRequestDto findByIdProduto(Long id) {
         Produto produto = produtoRepository.findById(id)
-                .orElseThrow(() -> new ResourceExceptionHandler("Este id do produto nao existe"));
+                .orElseThrow(() -> new ResourceExceptionHandler("This product ID does not exist"));
 
         return new ProdutoRequestDto(produto.getDescricao(), produto.getNome(), produto.getPreco(), produto.getId(), produto.getStatusPedido() );
     }

@@ -30,7 +30,7 @@ public class ClienteService {
                 .orElse(null);
 
         if (cliente != null){
-            throw new BadRequestExceptionHandler("Este email de cliente ja existe!");
+            throw new BadRequestExceptionHandler("Email already exists, please try another one.");
         }
 
 
@@ -69,7 +69,7 @@ public class ClienteService {
 
     public ClienteResponseDto findClienteById(Long id){
         Cliente cliente = clienteRepository.findById(id)
-                .orElseThrow(() -> new ResourceExceptionHandler("Cliente nao encontrado"));
+                .orElseThrow(() -> new ResourceExceptionHandler("Client Not Found"));
 
         List<ProdutoResumoDto> produtoResumoDtos = cliente.getProdutos().stream()
                 .map(p -> new ProdutoResumoDto(p.getId(), p.getNome(), p.getDescricao(), p.getPreco(), p.getStatusPedido()))
@@ -88,7 +88,7 @@ public class ClienteService {
 
     public void deleteCliente(Long id){
         if (!clienteRepository.existsById(id)) {
-            throw new ResourceExceptionHandler("Cliente id: "+ id + "Not Found!");
+            throw new ResourceExceptionHandler("Client id: "+ id + "Not Found!");
         }
 
         clienteRepository.deleteById(id);
@@ -96,7 +96,7 @@ public class ClienteService {
 
     public void updateCliente(Long id, ClienteRequestDto dto){
         Cliente cliente = clienteRepository.findById(id)
-                .orElseThrow(() -> new ResourceExceptionHandler("Cliente id: "+ id + "Not Found!"));
+                .orElseThrow(() -> new ResourceExceptionHandler("Client id: "+ id + "Not Found!"));
 
 
     }

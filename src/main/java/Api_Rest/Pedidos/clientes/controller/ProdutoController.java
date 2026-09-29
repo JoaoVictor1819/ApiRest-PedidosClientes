@@ -30,7 +30,7 @@ public class ProdutoController {
     @Operation(summary = "Cadastro Produto", description = "Metodo para cadastrar produto")
     public ResponseEntity cadastrarProduto(@RequestBody @Valid ProdutoRequestDto dto){
         produtoService.saveProduto(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Produto cadastrado com suscesso!");
+        return ResponseEntity.status(HttpStatus.CREATED).body("Product successfully registered");
     }
 
     @GetMapping
@@ -65,6 +65,6 @@ public class ProdutoController {
     @Operation(summary = "Deletar produto", description = "Metodo que deleta um produto!")
     public ResponseEntity deletarProduto(@PathVariable Long id){
         produtoService.deleteProduto(id);
-        return  ResponseEntity.status(HttpStatus.OK).body("Deletado com sucesso!");
+        return  ResponseEntity.status(HttpStatus.OK).body("successfully deleted" + id);
     }
 }

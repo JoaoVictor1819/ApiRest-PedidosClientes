@@ -29,7 +29,7 @@ public class ClienteController {
     @Operation(summary = "Metodo Salvar", description = "Metodo feito para cadastrar clientes!")
     public ResponseEntity save(@Valid @RequestBody ClienteRequestDto dto) {
         clienteService.saveCliente(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Criado com suscesso!");
+        return ResponseEntity.status(HttpStatus.CREATED).body("Client successfully created");
     }
 
     @GetMapping
@@ -65,13 +65,13 @@ public class ClienteController {
     @Operation(summary = "Metodo Modificar", description = "Metodo feito para modificar cliente por id!")
     public ResponseEntity updateCliente(@PathVariable @Valid Long id, @RequestBody @Valid ClienteRequestDto dto) {
         clienteService.updateCliente(id, dto);
-        return ResponseEntity.status(HttpStatus.OK).body("Dado atualizado com sucesso");
+        return ResponseEntity.status(HttpStatus.OK).body("Data successfully updated");
     }
 
     @DeleteMapping("/delete/{id}")
     @Operation(summary = "Metodo Deletar", description = "Metodo feito para deletar cliente por id!")
     public ResponseEntity deleteCliente(@PathVariable Long id) {
         clienteService.deleteCliente(id);
-        return ResponseEntity.status(HttpStatus.OK).body("Deletado com sucesso!");
+        return ResponseEntity.status(HttpStatus.OK).body("successfully deleted");
     }
 }

@@ -6,6 +6,7 @@ import Api_Rest.Pedidos.clientes.entity.produto.Produto;
 import jakarta.persistence.*;
 import lombok.*;
 
+import javax.lang.model.element.Name;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,12 +23,13 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "Nome_Cliente", nullable = false)
     private String name;
 
-    @Column(unique = true, nullable = true)
+    @Column(name = "Email_Cliente",unique = true, nullable = true)
     private String email;
 
+    @Enumerated(EnumType.STRING)
     private TiposPamentos tiposPamentos;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

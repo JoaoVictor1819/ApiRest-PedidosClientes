@@ -2,8 +2,7 @@ package Api_Rest.Pedidos.clientes.controller;
 
 
 import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoRequestDto;
-import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoResponseDto;
-import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoResumoDto;
+import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoUpdateDto;
 import Api_Rest.Pedidos.clientes.entity.produto.Produto;
 import Api_Rest.Pedidos.clientes.entity.produto.StatusPedido;
 import Api_Rest.Pedidos.clientes.service.ProdutoService;
@@ -57,7 +56,7 @@ public class ProdutoController {
 
     @PutMapping("/updates/{id}")
     @Operation(summary = "Atualizar produto", description = "Metodo que atualiza um produto ja cadastrado")
-    public  ResponseEntity<Produto> atualizarProduto(@PathVariable @Valid Long id, @RequestBody @Valid ProdutoResponseDto dto){
+    public  ResponseEntity<Produto> atualizarProduto(@PathVariable @Valid Long id, @RequestBody @Valid ProdutoUpdateDto dto){
         var produto = produtoService.updateProduto(id, dto);
         return ResponseEntity.status(HttpStatus.OK).body(produto);
     }

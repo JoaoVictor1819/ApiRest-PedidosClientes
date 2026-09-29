@@ -1,6 +1,6 @@
 package Api_Rest.Pedidos.clientes.dto.cliente_dto;
 
-import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoResumoDto;
+import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoResponseDto;
 import Api_Rest.Pedidos.clientes.entity.cliente.TiposPamentos;
 import lombok.*;
 
@@ -22,5 +22,5 @@ public class ClienteResponseDto {
 
     private TiposPamentos tiposPamentoPadrao;
 
-    private List<ProdutoResumoDto> produtosResumoDtos;
+    private List<ProdutoResponseDto> produtosResumoDtos;
 }

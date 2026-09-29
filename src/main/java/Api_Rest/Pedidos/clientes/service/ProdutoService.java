@@ -2,8 +2,7 @@ package Api_Rest.Pedidos.clientes.service;
 
 
 import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoRequestDto;
-import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoResponseDto;
-import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoResumoDto;
+import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoUpdateDto;
 import Api_Rest.Pedidos.clientes.entity.cliente.Cliente;
 import Api_Rest.Pedidos.clientes.entity.produto.Produto;
 import Api_Rest.Pedidos.clientes.entity.produto.StatusPedido;
@@ -82,7 +81,7 @@ public class ProdutoService {
 
 
     @Transactional
-    public Produto updateProduto(Long id, ProdutoResponseDto dto){
+    public Produto updateProduto(Long id, ProdutoUpdateDto dto){
         produtoRepository.findById(id)
                 .orElseThrow(() -> new ResourceExceptionHandler("Product Id: "+ id +" Not Found"));
 

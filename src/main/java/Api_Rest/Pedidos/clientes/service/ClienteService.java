@@ -3,7 +3,7 @@ package Api_Rest.Pedidos.clientes.service;
 
 import Api_Rest.Pedidos.clientes.dto.cliente_dto.ClienteRequestDto;
 import Api_Rest.Pedidos.clientes.dto.cliente_dto.ClienteResponseDto;
-import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoResumoDto;
+import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoResponseDto;
 import Api_Rest.Pedidos.clientes.entity.cliente.Cliente;
 import Api_Rest.Pedidos.clientes.entity.cliente.TiposPamentos;
 import Api_Rest.Pedidos.clientes.exception.BadRequestExceptionHandler;
@@ -54,11 +54,11 @@ public class ClienteService {
     }
 
     private ClienteResponseDto toResponseDto(Cliente cliente){ // Metodo que faz a convercao de entidade para o dto
-        List<ProdutoResumoDto> produtoResumoDtos = cliente.getProdutos().stream()
-                .map(p -> new ProdutoResumoDto(p.getId(), p.getNome(), p.getDescricao(), p.getPreco(), p.getStatusPedido()))
+        List<ProdutoResponseDto> produtoResponseDtos = cliente.getProdutos().stream()
+                .map(p -> new ProdutoResponseDto(p.getId(), p.getNome(), p.getDescricao(), p.getPreco(), p.getStatusPedido()))
                 .toList();
         
-        return new ClienteResponseDto(cliente.getId(), cliente.getName(),cliente.getEmail(), cliente.getTiposPamentos(), produtoResumoDtos);
+        return new ClienteResponseDto(cliente.getId(), cliente.getName(),cliente.getEmail(), cliente.getTiposPamentos(), produtoResponseDtos);
     }
 
     public List<ClienteResponseDto> findByName(String name){
@@ -73,11 +73,11 @@ public class ClienteService {
         Cliente cliente = clienteRepository.findById(id)
                 .orElseThrow(() -> new ResourceExceptionHandler("Client Not Found"));
 
-        List<ProdutoResumoDto> produtoResumoDtos = cliente.getProdutos().stream()
-                .map(p -> new ProdutoResumoDto(p.getId(), p.getNome(), p.getDescricao(), p.getPreco(), p.getStatusPedido()))
+        List<ProdutoResponseDto> produtoResponseDtos = cliente.getProdutos().stream()
+                .map(p -> new ProdutoResponseDto(p.getId(), p.getNome(), p.getDescricao(), p.getPreco(), p.getStatusPedido()))
                 .toList();
 
-        return new ClienteResponseDto(cliente.getId(),cliente.getName(), cliente.getEmail(), cliente.getTiposPamentos(), produtoResumoDtos);
+        return new ClienteResponseDto(cliente.getId(),cliente.getName(), cliente.getEmail(), cliente.getTiposPamentos(), produtoResponseDtos);
     }
 
     public List<ClienteResponseDto> findByPagamento(TiposPamentos tiposPamentos){

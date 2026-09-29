@@ -1,6 +1,6 @@
 package Api_Rest.Pedidos.clientes.entity.produto;
 
-import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoResponseDto;
+import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoUpdateDto;
 import Api_Rest.Pedidos.clientes.entity.cliente.Cliente;
 import jakarta.persistence.*;
 import lombok.*;
@@ -20,13 +20,13 @@ public class Produto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "Nome_Produto", nullable = false, unique = true)
     private String nome;
 
-    @Column(nullable = false)
+    @Column(name = "Descricao_Produto", nullable = false)
     private String descricao;
 
-    @Column(nullable = false)
+    @Column(name = "Preco_Produto", nullable = false)
     private BigDecimal preco;
 
     @Enumerated(EnumType.STRING)
@@ -37,7 +37,7 @@ public class Produto {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    public Produto(ProdutoResponseDto dto) {
+    public Produto(ProdutoUpdateDto dto) {
         this.nome = dto.getNome();
         this.preco = dto.getPreco();
         this.descricao = dto.getDescricao();

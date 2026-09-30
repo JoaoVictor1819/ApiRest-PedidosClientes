@@ -58,7 +58,7 @@ public class ClienteService {
                 .map(p -> new ProdutoResponseDto(p.getId(), p.getNome(), p.getDescricao(), p.getPreco(), p.getStatusPedido()))
                 .toList();
         
-        return new ClienteResponseDto(cliente.getId(), cliente.getName(),cliente.getEmail(), cliente.getTiposPamentos(), produtoResponseDtos);
+        return new ClienteResponseDto(cliente.getId(), cliente.getName(),cliente.getEmail(), cliente.getTiposPamentos(),produtoResponseDtos, cliente.getEndereco());
     }
 
     public List<ClienteResponseDto> findByName(String name){
@@ -77,7 +77,7 @@ public class ClienteService {
                 .map(p -> new ProdutoResponseDto(p.getId(), p.getNome(), p.getDescricao(), p.getPreco(), p.getStatusPedido()))
                 .toList();
 
-        return new ClienteResponseDto(cliente.getId(),cliente.getName(), cliente.getEmail(), cliente.getTiposPamentos(), produtoResponseDtos);
+        return new ClienteResponseDto(cliente.getId(),cliente.getName(), cliente.getEmail(), cliente.getTiposPamentos(), produtoResponseDtos, cliente.getEndereco());
     }
 
     public List<ClienteResponseDto> findByPagamento(TiposPamentos tiposPamentos){

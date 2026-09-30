@@ -4,6 +4,7 @@ import Api_Rest.Pedidos.clientes.entity.Endereco;
 import Api_Rest.Pedidos.clientes.entity.cliente.TiposPamentos;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Getter
@@ -22,10 +23,9 @@ public class ClienteRequestDto {
         @Email(message = "Invalid email")
         private String email;
 
-        @NotBlank(message = "Select the payment method to be used as your default.")
+        @NotNull(message = "Select the payment method to be used as your default.")
         private TiposPamentos tiposPamentoPadrao;
 
-        private Endereco clienteEndereco;
 
 
 }

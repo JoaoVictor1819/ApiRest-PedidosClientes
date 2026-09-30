@@ -36,9 +36,9 @@ public class EnderecoService {
                 .numeroResidencia(dto.getNumeroResidencia())
                 .build();
 
-        Endereco enderecoCliente = enderecoRepository.save(endereco);
 
-        cliente.setEndereco(enderecoCliente);
+
+        cliente.setEndereco(endereco);
         clienteRepository.save(cliente);
 
     }

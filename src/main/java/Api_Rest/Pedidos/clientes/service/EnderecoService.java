@@ -7,7 +7,10 @@ import Api_Rest.Pedidos.clientes.exception.BadRequestExceptionHandler;
 import Api_Rest.Pedidos.clientes.exception.ResourceExceptionHandler;
 import Api_Rest.Pedidos.clientes.repository.ClienteRepository;
 import Api_Rest.Pedidos.clientes.repository.EnderecoRepository;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class EnderecoService {
@@ -40,6 +43,34 @@ public class EnderecoService {
 
         cliente.setEndereco(endereco);
         clienteRepository.save(cliente);
+    }
+
+
+    public void deleteEndereco(Long id)throws ResourceExceptionHandler{
+        if (!enderecoRepository.existsById(id)){
+            throw new ResourceExceptionHandler("Nao existe nenhum endereco cadastro com este id: "+id);
+        }
+        enderecoRepository.deleteById(id);
+    }
+
+    public void updateEndereco(Long id, @Valid EnderecoRequestDto dto){
+        Cliente cliente = clienteRepository.findById(dto.getClienteId())
+                .orElseThrow(() -> new ResourceExceptionHandler("este id nao existe"));
+
+         enderecoRepository.findById(id)
+                .orElseThrow(() -> new ResourceExceptionHandler("nao existe nenhum endereco cadastrado com este id: "+id));
+
+
+         var endereco = Endereco.builder()
+                 .cep(dto.getCep())
+                 .estado(dto.getEstado())
+                 .cidade(dto.getCidade())
+                 .numeroResidencia(dto.getNumeroResidencia())
+                 .build();
+
+        cliente.setEndereco(endereco);
+        clienteRepository.save(cliente);
+
 
     }
 }

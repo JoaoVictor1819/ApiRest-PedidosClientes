@@ -20,7 +20,7 @@ public class EnderecoService {
         this.clienteRepository = clienteRepository;
     }
 
-    public void criarEndereco(EnderecoRequestDto dto){
+    public void criarEndereco(EnderecoRequestDto dto)throws ResourceExceptionHandler, BadRequestExceptionHandler {
         Cliente cliente = clienteRepository.findById(dto.getClienteId())
                 .orElseThrow(() -> new ResourceExceptionHandler("Este id nao foi encontrado e nao pode receber este endereco"));
 
@@ -28,5 +28,18 @@ public class EnderecoService {
         if (endereco != null){
             throw new BadRequestExceptionHandler("Este cliente ja possui um endereco cadastrado");
         }
+
+        endereco = Endereco.builder()
+                .cep(dto.getCep())
+                .estado(dto.getEstado())
+                .cidade(dto.getCidade())
+                .numeroResidencia(dto.getNumeroResidencia())
+                .build();
+
+        Endereco enderecoCliente = enderecoRepository.save(endereco);
+
+        cliente.setEndereco(enderecoCliente);
+        clienteRepository.save(cliente);
+
     }
 }

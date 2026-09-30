@@ -9,6 +9,7 @@ import Api_Rest.Pedidos.clientes.entity.cliente.TiposPamentos;
 import Api_Rest.Pedidos.clientes.exception.BadRequestExceptionHandler;
 import Api_Rest.Pedidos.clientes.exception.ResourceExceptionHandler;
 import Api_Rest.Pedidos.clientes.repository.ClienteRepository;
+import Api_Rest.Pedidos.clientes.repository.EnderecoRepository;
 import Api_Rest.Pedidos.clientes.repository.ProdutoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,6 @@ public class ClienteService {
         if (cliente != null){
             throw new BadRequestExceptionHandler("Email already exists, please try another one.");
         }
-
 
         clienteRepository.save(Cliente.builder()
                 .name(dto.getName())

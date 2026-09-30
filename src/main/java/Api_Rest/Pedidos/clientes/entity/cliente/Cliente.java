@@ -2,6 +2,7 @@ package Api_Rest.Pedidos.clientes.entity.cliente;
 
 
 import Api_Rest.Pedidos.clientes.dto.cliente_dto.ClienteRequestDto;
+import Api_Rest.Pedidos.clientes.entity.Endereco;
 import Api_Rest.Pedidos.clientes.entity.produto.Produto;
 import jakarta.persistence.*;
 import lombok.*;
@@ -31,6 +32,10 @@ public class Cliente {
 
     @Enumerated(EnumType.STRING)
     private TiposPamentos tiposPamentos;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "endereco_id")
+    private Endereco endereco;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     //Classe nao proprietaria| Relacionamento de um para muintos que sera consumido pela entidade que leva @ManyToOne

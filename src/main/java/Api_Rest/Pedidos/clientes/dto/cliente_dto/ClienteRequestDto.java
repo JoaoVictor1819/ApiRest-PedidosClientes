@@ -1,5 +1,6 @@
 package Api_Rest.Pedidos.clientes.dto.cliente_dto;
 
+import Api_Rest.Pedidos.clientes.entity.Endereco;
 import Api_Rest.Pedidos.clientes.entity.cliente.TiposPamentos;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -23,6 +24,8 @@ public class ClienteRequestDto {
 
         @NotBlank(message = "Select the payment method to be used as your default.")
         private TiposPamentos tiposPamentoPadrao;
+
+        private Endereco clienteEndereco;
 
 
 }

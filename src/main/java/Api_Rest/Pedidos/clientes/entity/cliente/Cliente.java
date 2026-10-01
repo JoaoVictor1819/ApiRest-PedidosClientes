@@ -2,12 +2,11 @@ package Api_Rest.Pedidos.clientes.entity.cliente;
 
 
 import Api_Rest.Pedidos.clientes.dto.cliente_dto.ClienteRequestDto;
-import Api_Rest.Pedidos.clientes.entity.Endereco;
+import Api_Rest.Pedidos.clientes.entity.endereco.Endereco;
 import Api_Rest.Pedidos.clientes.entity.produto.Produto;
 import jakarta.persistence.*;
 import lombok.*;
 
-import javax.lang.model.element.Name;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,10 +32,13 @@ public class Cliente {
     @Enumerated(EnumType.STRING)
     private TiposPamentos tiposPamentos;
 
-    @OneToOne(cascade = CascadeType.ALL)
+
+    /// EAGER
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "endereco_id")
     private Endereco endereco;
 
+    /// LAZY
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     //Classe nao proprietaria| Relacionamento de um para muintos que sera consumido pela entidade que leva @ManyToOne
     private Set<Produto> produtos = new HashSet<>();

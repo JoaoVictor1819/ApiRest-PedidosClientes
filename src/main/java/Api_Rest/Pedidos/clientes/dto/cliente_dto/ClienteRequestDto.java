@@ -1,6 +1,5 @@
 package Api_Rest.Pedidos.clientes.dto.cliente_dto;
 
-import Api_Rest.Pedidos.clientes.entity.Endereco;
 import Api_Rest.Pedidos.clientes.entity.cliente.TiposPamentos;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

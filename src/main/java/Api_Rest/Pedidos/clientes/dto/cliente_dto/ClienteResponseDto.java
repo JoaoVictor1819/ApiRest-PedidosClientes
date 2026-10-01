@@ -1,7 +1,7 @@
 package Api_Rest.Pedidos.clientes.dto.cliente_dto;
 
 import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoResponseDto;
-import Api_Rest.Pedidos.clientes.entity.Endereco;
+import Api_Rest.Pedidos.clientes.entity.endereco.Endereco;
 import Api_Rest.Pedidos.clientes.entity.cliente.TiposPamentos;
 import lombok.*;
 

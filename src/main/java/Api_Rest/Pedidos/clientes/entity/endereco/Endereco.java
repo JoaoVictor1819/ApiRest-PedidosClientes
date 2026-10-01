@@ -1,8 +1,7 @@
-package Api_Rest.Pedidos.clientes.entity;
+package Api_Rest.Pedidos.clientes.entity.endereco;
 
 
-import Api_Rest.Pedidos.clientes.dto.EnderecoRequestDto;
-import Api_Rest.Pedidos.clientes.entity.cliente.Cliente;
+import Api_Rest.Pedidos.clientes.dto.endereco_dto.EnderecoRequestDto;
 import jakarta.persistence.*;
 import lombok.*;
 

@@ -1,4 +1,4 @@
-package Api_Rest.Pedidos.clientes.dto;
+package Api_Rest.Pedidos.clientes.dto.endereco_dto;
 
 
 import lombok.*;

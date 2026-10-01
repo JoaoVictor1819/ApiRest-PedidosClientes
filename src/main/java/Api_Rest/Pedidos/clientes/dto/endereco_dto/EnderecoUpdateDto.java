@@ -1,4 +1,5 @@
-package Api_Rest.Pedidos.clientes.dto;
+package Api_Rest.Pedidos.clientes.dto.endereco_dto;
+
 
 import lombok.*;
 
@@ -8,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 @Builder
-public class EnderecoRequestDto {
+public class EnderecoUpdateDto {
 
     private String cep;
 
@@ -18,5 +19,4 @@ public class EnderecoRequestDto {
 
     private Integer numeroResidencia;
 
-    private Long clienteId;
 }

@@ -1,7 +1,7 @@
 package Api_Rest.Pedidos.clientes.service;
 
-import Api_Rest.Pedidos.clientes.dto.EnderecoRequestDto;
-import Api_Rest.Pedidos.clientes.entity.Endereco;
+import Api_Rest.Pedidos.clientes.dto.endereco_dto.EnderecoRequestDto;
+import Api_Rest.Pedidos.clientes.entity.endereco.Endereco;
 import Api_Rest.Pedidos.clientes.entity.cliente.Cliente;
 import Api_Rest.Pedidos.clientes.exception.BadRequestExceptionHandler;
 import Api_Rest.Pedidos.clientes.exception.ResourceExceptionHandler;
@@ -9,8 +9,6 @@ import Api_Rest.Pedidos.clientes.repository.ClienteRepository;
 import Api_Rest.Pedidos.clientes.repository.EnderecoRepository;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class EnderecoService {

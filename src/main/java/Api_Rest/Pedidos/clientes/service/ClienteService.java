@@ -40,12 +40,10 @@ public class ClienteService {
                 .email(dto.getEmail())
                 .tiposPamentos(dto.getTiposPamentoPadrao())
                 .build());
-
     }
 
     public List<ClienteResponseDto> findAllCliente(){
         List<Cliente> clientes = clienteRepository.findAll();
-
         // Converte List<Cliente> -> List<ClienteResponseDto>
         return clientes.stream()
                 .map(this::toResponseDto)// -> Esta chamando o metodo que mapeia a entidade para dto

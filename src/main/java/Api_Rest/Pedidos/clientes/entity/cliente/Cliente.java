@@ -30,7 +30,7 @@ public class Cliente {
     private String email;
 
     @Enumerated(EnumType.STRING)
-    private TiposPamentos tiposPamentos;
+    private TiposPagamentos tiposPagamentos;
 
 
     /// EAGER
@@ -46,6 +46,6 @@ public class Cliente {
     public Cliente(ClienteRequestDto dto) {
         this.name = dto.getName();
         this.email = dto.getEmail();
-        this.tiposPamentos = dto.getTiposPamentoPadrao();
+        this.tiposPagamentos = dto.getTiposPagamentoPadrao();
     }
 }

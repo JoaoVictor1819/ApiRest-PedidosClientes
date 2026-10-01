@@ -1,17 +1,19 @@
 package Api_Rest.Pedidos.clientes.service;
 
 
+import Api_Rest.Pedidos.clientes.dto.ClienteProjection;
 import Api_Rest.Pedidos.clientes.dto.cliente_dto.ClienteRequestDto;
 import Api_Rest.Pedidos.clientes.dto.cliente_dto.ClienteResponseDto;
 import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoResponseDto;
 import Api_Rest.Pedidos.clientes.entity.cliente.Cliente;
-import Api_Rest.Pedidos.clientes.entity.cliente.TiposPamentos;
+import Api_Rest.Pedidos.clientes.entity.cliente.TiposPagamentos;
 import Api_Rest.Pedidos.clientes.exception.BadRequestExceptionHandler;
 import Api_Rest.Pedidos.clientes.exception.ResourceExceptionHandler;
 import Api_Rest.Pedidos.clientes.repository.ClienteRepository;
-import Api_Rest.Pedidos.clientes.repository.EnderecoRepository;
 import Api_Rest.Pedidos.clientes.repository.ProdutoRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,7 +40,7 @@ public class ClienteService {
         clienteRepository.save(Cliente.builder()
                 .name(dto.getName())
                 .email(dto.getEmail())
-                .tiposPamentos(dto.getTiposPamentoPadrao())
+                .tiposPagamentos(dto.getTiposPagamentoPadrao())
                 .build());
     }
 
@@ -56,7 +58,7 @@ public class ClienteService {
                 .map(p -> new ProdutoResponseDto(p.getId(), p.getNome(), p.getDescricao(), p.getPreco(), p.getStatusPedido()))
                 .toList();
         
-        return new ClienteResponseDto(cliente.getId(), cliente.getName(),cliente.getEmail(), cliente.getTiposPamentos(),produtoResponseDtos, cliente.getEndereco());
+        return new ClienteResponseDto(cliente.getId(), cliente.getName(),cliente.getEmail(), cliente.getTiposPagamentos(),produtoResponseDtos, cliente.getEndereco());
     }
 
     public List<ClienteResponseDto> findByName(String name){
@@ -75,11 +77,11 @@ public class ClienteService {
                 .map(p -> new ProdutoResponseDto(p.getId(), p.getNome(), p.getDescricao(), p.getPreco(), p.getStatusPedido()))
                 .toList();
 
-        return new ClienteResponseDto(cliente.getId(),cliente.getName(), cliente.getEmail(), cliente.getTiposPamentos(), produtoResponseDtos, cliente.getEndereco());
+        return new ClienteResponseDto(cliente.getId(),cliente.getName(), cliente.getEmail(), cliente.getTiposPagamentos(), produtoResponseDtos, cliente.getEndereco());
     }
 
-    public List<ClienteResponseDto> findByPagamento(TiposPamentos tiposPamentos){
-        List<Cliente> clientes = clienteRepository.findByTiposPamentos(tiposPamentos);
+    public List<ClienteResponseDto> findByPagamento(TiposPagamentos tiposPagamentos){
+        List<Cliente> clientes = clienteRepository.findByTiposPagamentos(tiposPagamentos);
 
         return  clientes.stream()
                 .map(this::toResponseDto)
@@ -104,10 +106,17 @@ public class ClienteService {
        clienteRepository.save(Cliente.builder()
                        .name(dto.getName())
                        .email(dto.getEmail())
-                       .tiposPamentos(dto.getTiposPamentoPadrao())
+                       .tiposPagamentos(dto.getTiposPagamentoPadrao())
                         .build());
 
-
-
     }
+
+    public List<ClienteProjection> getAllClientes(){
+        return clienteRepository.getAllClientes();
+    }
+
+    public Page<ClienteProjection> getAllClientesPageable(Integer page, Integer size){
+        return clienteRepository.getAllClientesPage(PageRequest.of(page, size));
+    }
+
 }

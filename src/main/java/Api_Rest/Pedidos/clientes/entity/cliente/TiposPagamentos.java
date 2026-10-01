@@ -1,6 +1,6 @@
 package Api_Rest.Pedidos.clientes.entity.cliente;
 
-public enum TiposPamentos {
+public enum TiposPagamentos {
     CREDIT,
     DEBITO,
     PIX,

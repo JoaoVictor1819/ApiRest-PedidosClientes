@@ -1,13 +1,16 @@
 package Api_Rest.Pedidos.clientes.controller;
 
 
+import Api_Rest.Pedidos.clientes.dto.ClienteProjection;
 import Api_Rest.Pedidos.clientes.dto.cliente_dto.ClienteRequestDto;
 import Api_Rest.Pedidos.clientes.dto.cliente_dto.ClienteResponseDto;
-import Api_Rest.Pedidos.clientes.entity.cliente.TiposPamentos;
+import Api_Rest.Pedidos.clientes.entity.cliente.TiposPagamentos;
 import Api_Rest.Pedidos.clientes.service.ClienteService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,9 +42,22 @@ public class ClienteController {
         return ResponseEntity.status(HttpStatus.OK).body(cliente);
     }
 
+
+    @GetMapping("/projection")
+    @ResponseStatus(HttpStatus.OK)
+    public List<ClienteProjection> findAllClientes(){
+        return clienteService.getAllClientes();
+    }
+
+    @GetMapping("page/{page}/size/{size}")
+    @ResponseStatus(HttpStatus.OK)
+    public Page<ClienteProjection> findAllClientesPage(@PathVariable int page, @PathVariable int size){
+        return clienteService.getAllClientesPageable(page, size);
+    }
+
     @GetMapping("/search/tipos_pagamentos")
     @Operation(summary = "Filtar por tipo de pagamento", description = "Metodo que ver os pedidos feitos com cada tipo de pagamento")
-    public ResponseEntity<List<ClienteResponseDto>> findByPagamento(TiposPamentos tiposPamentos){
+    public ResponseEntity<List<ClienteResponseDto>> findByPagamento(TiposPagamentos tiposPamentos){
         var cliente = clienteService.findByPagamento(tiposPamentos);
         return ResponseEntity.status(HttpStatus.OK).body(cliente);
     }

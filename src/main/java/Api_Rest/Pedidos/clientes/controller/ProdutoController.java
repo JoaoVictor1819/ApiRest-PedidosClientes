@@ -1,6 +1,7 @@
 package Api_Rest.Pedidos.clientes.controller;
 
 
+import Api_Rest.Pedidos.clientes.dto.ProdutoProjection;
 import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoRequestDto;
 import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoUpdateDto;
 import Api_Rest.Pedidos.clientes.entity.produto.Produto;
@@ -9,6 +10,7 @@ import Api_Rest.Pedidos.clientes.service.ProdutoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -46,6 +48,13 @@ public class ProdutoController {
         List<ProdutoRequestDto> produto = produtoService.findByStatus(statusPedido);
         return ResponseEntity.status(HttpStatus.OK).body(produto);
     }
+
+    @GetMapping("/page/{page}/size/{size}")
+    public ResponseEntity<Page<ProdutoProjection>> listarProdutos(@PathVariable Integer page, @PathVariable Integer size){
+        Page<ProdutoProjection> produto = produtoService.getAllProdutosPage(page, size);
+        return ResponseEntity.status(HttpStatus.OK).body(produto);
+    }
+
 
     @GetMapping("search/{id}")
     @Operation(summary = "Filtrar por Id", description = "Metodo que pesquisa o produto por id")

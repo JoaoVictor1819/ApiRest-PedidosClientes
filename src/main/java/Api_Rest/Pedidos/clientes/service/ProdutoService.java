@@ -1,6 +1,7 @@
 package Api_Rest.Pedidos.clientes.service;
 
 
+import Api_Rest.Pedidos.clientes.dto.ProdutoProjection;
 import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoRequestDto;
 import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoUpdateDto;
 import Api_Rest.Pedidos.clientes.entity.cliente.Cliente;
@@ -10,6 +11,9 @@ import Api_Rest.Pedidos.clientes.exception.ResourceExceptionHandler;
 import Api_Rest.Pedidos.clientes.repository.ClienteRepository;
 import Api_Rest.Pedidos.clientes.repository.ProdutoRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -92,4 +96,9 @@ public class ProdutoService {
 
         return  produtoRepository.save(produto);
     }
+
+    public Page<ProdutoProjection> getAllProdutosPage(Integer page, Integer size){
+        return produtoRepository.getAllProdutos(PageRequest.of(page, size));
+    }
+
 }

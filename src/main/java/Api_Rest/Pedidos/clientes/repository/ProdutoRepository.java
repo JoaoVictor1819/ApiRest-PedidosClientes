@@ -29,4 +29,8 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
     """)
     Optional<Produto> findByNomeNativeQuery(String nome);
 
+
+
+
+
 }

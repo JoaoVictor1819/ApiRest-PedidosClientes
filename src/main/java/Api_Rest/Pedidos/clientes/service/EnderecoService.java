@@ -7,6 +7,7 @@ import Api_Rest.Pedidos.clientes.exception.BadRequestExceptionHandler;
 import Api_Rest.Pedidos.clientes.exception.ResourceExceptionHandler;
 import Api_Rest.Pedidos.clientes.repository.ClienteRepository;
 import Api_Rest.Pedidos.clientes.repository.EnderecoRepository;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,7 @@ public class EnderecoService {
         this.clienteRepository = clienteRepository;
     }
 
+    @Transactional
     public void criarEndereco(EnderecoRequestDto dto)throws ResourceExceptionHandler, BadRequestExceptionHandler {
         Cliente cliente = clienteRepository.findById(dto.getClienteId())
                 .orElseThrow(() -> new ResourceExceptionHandler("Este id nao foi encontrado e nao pode receber este endereco"));
@@ -51,6 +53,7 @@ public class EnderecoService {
         enderecoRepository.deleteById(id);
     }
 
+    @Transactional
     public void updateEndereco(Long id, @Valid EnderecoRequestDto dto){
         Cliente cliente = clienteRepository.findById(dto.getClienteId())
                 .orElseThrow(() -> new ResourceExceptionHandler("este id nao existe"));

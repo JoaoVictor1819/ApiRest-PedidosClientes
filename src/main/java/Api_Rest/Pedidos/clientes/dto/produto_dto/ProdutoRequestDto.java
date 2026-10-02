@@ -30,9 +30,9 @@ public class ProdutoRequestDto {
          @DecimalMin(value = "0.01", inclusive = false, message = "The value must be greater than zero.")
          private BigDecimal preco;
 
-         @NotBlank(message = "Customer ID is mandatory.")
+         @NotNull(message = "Customer ID is mandatory.")
          private Long clienteId;
 
-         @NotBlank(message = "Enter the current status of the customer's order.")
+         @NotNull(message = "Enter the current status of the customer's order.")
          private StatusPedido statusPedido;
 }

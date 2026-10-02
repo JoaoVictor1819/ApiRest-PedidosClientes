@@ -58,13 +58,12 @@ public class ProdutoService {
         return new ProdutoRequestDto(produto.getDescricao(), produto.getNome(), produto.getPreco(), produto.getId(), produto.getStatusPedido() );
     }
 
-    public List<Produto> findByStatus(StatusPedido statusPedido){
+    public List<ProdutoRequestDto> findByStatus(StatusPedido statusPedido){
+        List<Produto> produtoStatus = produtoRepository.findByStatusPedido(statusPedido);
 
-        if (statusPedido == null){
-            return produtoRepository.findAll();
-        }
-
-       return produtoRepository.findByStatusPedido(statusPedido);
+        return produtoStatus.stream()
+                .map(this::toResponseDto)
+                .toList();
     }
 
     public ProdutoRequestDto findByIdProduto(Long id) {

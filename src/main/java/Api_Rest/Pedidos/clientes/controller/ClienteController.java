@@ -88,6 +88,6 @@ public class ClienteController {
     @Operation(summary = "Metodo Deletar", description = "Metodo feito para deletar cliente por id!")
     public ResponseEntity deleteCliente(@PathVariable Long id) {
         clienteService.deleteCliente(id);
-        return ResponseEntity.status(HttpStatus.OK).body("successfully deleted");
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("successfully deleted");
     }
 }

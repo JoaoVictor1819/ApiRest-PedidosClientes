@@ -7,6 +7,7 @@ import Api_Rest.Pedidos.clientes.dto.cliente_dto.ClienteResponseDto;
 import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoResponseDto;
 import Api_Rest.Pedidos.clientes.entity.cliente.Cliente;
 import Api_Rest.Pedidos.clientes.entity.cliente.TiposPagamentos;
+import Api_Rest.Pedidos.clientes.entity.produto.Produto;
 import Api_Rest.Pedidos.clientes.exception.BadRequestExceptionHandler;
 import Api_Rest.Pedidos.clientes.exception.ResourceExceptionHandler;
 import Api_Rest.Pedidos.clientes.repository.ClienteRepository;
@@ -88,12 +89,19 @@ public class ClienteService {
                 .toList();
     }
 
+    @Transactional
     public void deleteCliente(Long id){
-        if (!clienteRepository.existsById(id)) {
-            throw new ResourceExceptionHandler("Client id: "+ id + "Not Found!");
-        }
+      Cliente cliente = clienteRepository.findById(id)
+                .orElseThrow(() -> new ResourceExceptionHandler("Client Not Found"));
 
-        clienteRepository.deleteById(id);
+     List<Long> ProdutosClienteIds = cliente.getProdutos().stream()
+             .map(Produto::getId)
+             .toList();
+
+     produtoRepository.deleteAllById(ProdutosClienteIds);
+
+     clienteRepository.deleteById(id);
+
     }
 
 

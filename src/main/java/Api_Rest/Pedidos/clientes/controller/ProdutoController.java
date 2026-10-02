@@ -42,8 +42,8 @@ public class ProdutoController {
 
     @GetMapping("search/status_pedidos")
     @Operation(summary = "Filtrar Status", description = "Metodo que mostra produto por status filtrando para melhor visualizacao")
-    public ResponseEntity<List<Produto>> listarStatusPedidos(@RequestParam (required = false) StatusPedido statusPedido){
-        List<Produto> produto = produtoService.findByStatus(statusPedido);
+    public ResponseEntity<List<ProdutoRequestDto>> listarStatusPedidos(@RequestParam (required = false) StatusPedido statusPedido){
+        List<ProdutoRequestDto> produto = produtoService.findByStatus(statusPedido);
         return ResponseEntity.status(HttpStatus.OK).body(produto);
     }
 

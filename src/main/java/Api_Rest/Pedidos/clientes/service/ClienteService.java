@@ -1,7 +1,7 @@
 package Api_Rest.Pedidos.clientes.service;
 
 
-import Api_Rest.Pedidos.clientes.dto.ClienteProjection;
+import Api_Rest.Pedidos.clientes.dto.projection.ClienteProjection;
 import Api_Rest.Pedidos.clientes.dto.cliente_dto.ClienteRequestDto;
 import Api_Rest.Pedidos.clientes.dto.cliente_dto.ClienteResponseDto;
 import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoResponseDto;
@@ -64,7 +64,7 @@ public class ClienteService {
 
     public List<ClienteResponseDto> findByName(String name){
         List<Cliente> clientesNome = clienteRepository.findByNameContainingIgnoreCase(name);
-
+        
         return clientesNome.stream()
                 .map(this::toResponseDto)
                 .toList();

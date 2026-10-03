@@ -45,7 +45,7 @@ public class EnderecoService {
         clienteRepository.save(cliente);
     }
 
-
+    @Transactional
     public void deleteEndereco(Long id)throws ResourceExceptionHandler{
         if (!enderecoRepository.existsById(id)){
             throw new ResourceExceptionHandler("Nao existe nenhum endereco cadastro com este id: "+id);

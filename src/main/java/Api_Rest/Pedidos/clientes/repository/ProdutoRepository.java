@@ -1,6 +1,6 @@
 package Api_Rest.Pedidos.clientes.repository;
 
-import Api_Rest.Pedidos.clientes.dto.ProdutoProjection;
+import Api_Rest.Pedidos.clientes.dto.projection.ProdutoProjection;
 import Api_Rest.Pedidos.clientes.entity.produto.Produto;
 import Api_Rest.Pedidos.clientes.entity.produto.StatusPedido;
 import org.springframework.data.domain.Page;
@@ -37,7 +37,7 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
                     " p.Nome_Produto AS nome," +
                     " p.Descricao_Produto AS descricao," +
                     " p.Preco_Produto AS preco," +
-                    " p.status_pedido AS statusPedido," +  // <- confirmar esse nome
+                    " p.status_pedido AS statusPedido," +
                     " c.id AS clienteId," +
                     " c.nome_cliente AS clienteNome " +
                     "FROM pedidos p " +

@@ -1,6 +1,6 @@
 package Api_Rest.Pedidos.clientes.repository;
 
-import Api_Rest.Pedidos.clientes.dto.ClienteProjection;
+import Api_Rest.Pedidos.clientes.dto.projection.ClienteProjection;
 import Api_Rest.Pedidos.clientes.entity.cliente.Cliente;
 import Api_Rest.Pedidos.clientes.entity.cliente.TiposPagamentos;
 import Api_Rest.Pedidos.clientes.entity.endereco.Endereco;

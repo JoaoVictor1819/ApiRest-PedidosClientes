@@ -1,4 +1,4 @@
-package Api_Rest.Pedidos.clientes.dto;
+package Api_Rest.Pedidos.clientes.dto.projection;
 
 import Api_Rest.Pedidos.clientes.entity.produto.StatusPedido;
 

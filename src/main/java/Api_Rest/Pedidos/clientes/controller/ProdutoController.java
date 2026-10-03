@@ -1,7 +1,7 @@
 package Api_Rest.Pedidos.clientes.controller;
 
 
-import Api_Rest.Pedidos.clientes.dto.ProdutoProjection;
+import Api_Rest.Pedidos.clientes.dto.projection.ProdutoProjection;
 import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoRequestDto;
 import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoUpdateDto;
 import Api_Rest.Pedidos.clientes.entity.produto.Produto;

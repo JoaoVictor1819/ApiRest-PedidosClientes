@@ -22,7 +22,7 @@ public class Produto {
     private Long id;
 
     @Column(unique = true, nullable = false)
-    private Date dataPedido = new Date();
+    private Date dataCriacao = new Date();
 
     @Column(name = "Nome_Produto", nullable = false)
     private String nome;

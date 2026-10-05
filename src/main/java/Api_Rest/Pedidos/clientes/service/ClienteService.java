@@ -56,7 +56,7 @@ public class ClienteService {
 
     private ClienteResponseDto toResponseDto(Cliente cliente){ // Metodo que faz a convercao de entidade para o dto
         List<ProdutoResponseDto> produtoResponseDtos = cliente.getProdutos().stream()
-                .map(p -> new ProdutoResponseDto(p.getId(), p.getNome(), p.getDescricao(), p.getPreco(), p.getStatusPedido()))
+                .map(p -> new ProdutoResponseDto(p.getId(), p.getNome(),p.getDataCriacao(), p.getDescricao(), p.getPreco(), p.getStatusPedido()))
                 .toList();
         
         return new ClienteResponseDto(cliente.getId(), cliente.getName(),cliente.getEmail(), cliente.getTiposPagamentos(),produtoResponseDtos, cliente.getEndereco());
@@ -75,7 +75,7 @@ public class ClienteService {
                 .orElseThrow(() -> new ResourceExceptionHandler("Client Not Found"));
 
         List<ProdutoResponseDto> produtoResponseDtos = cliente.getProdutos().stream()
-                .map(p -> new ProdutoResponseDto(p.getId(), p.getNome(), p.getDescricao(), p.getPreco(), p.getStatusPedido()))
+                .map(p -> new ProdutoResponseDto(p.getId(), p.getNome(),p.getDataCriacao(), p.getDescricao(), p.getPreco(), p.getStatusPedido()))
                 .toList();
 
         return new ClienteResponseDto(cliente.getId(),cliente.getName(), cliente.getEmail(), cliente.getTiposPagamentos(), produtoResponseDtos, cliente.getEndereco());

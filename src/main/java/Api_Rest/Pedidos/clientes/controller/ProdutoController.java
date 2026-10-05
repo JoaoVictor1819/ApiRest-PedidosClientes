@@ -10,6 +10,7 @@ import Api_Rest.Pedidos.clientes.service.ProdutoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,13 +21,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/produto")
 @Tag(name = "Produtos", description = "Metodo Crud para produto")
+@RequiredArgsConstructor
 public class ProdutoController {
 
-    ProdutoService produtoService;
-
-    public ProdutoController(ProdutoService produtoService) {
-        this.produtoService = produtoService;
-    }
+    private final ProdutoService produtoService;
 
     @PostMapping
     @Operation(summary = "Cadastro Produto", description = "Metodo para cadastrar produto")

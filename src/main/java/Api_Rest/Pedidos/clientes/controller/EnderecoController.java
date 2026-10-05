@@ -5,19 +5,17 @@ import Api_Rest.Pedidos.clientes.dto.endereco_dto.EnderecoRequestDto;
 import Api_Rest.Pedidos.clientes.entity.endereco.Endereco;
 import Api_Rest.Pedidos.clientes.service.EnderecoService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/endereco")
+@RequiredArgsConstructor
 public class EnderecoController {
 
     private final EnderecoService enderecoService;
-
-    public EnderecoController(EnderecoService enderecoService) {
-        this.enderecoService = enderecoService;
-    }
 
     @PostMapping
     public ResponseEntity adicionarEndereco(@Valid @RequestBody EnderecoRequestDto enderecoRequestDto) {

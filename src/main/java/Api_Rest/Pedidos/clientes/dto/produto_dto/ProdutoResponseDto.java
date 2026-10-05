@@ -5,6 +5,7 @@ import Api_Rest.Pedidos.clientes.entity.produto.StatusPedido;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -17,6 +18,8 @@ public class ProdutoResponseDto {
     private Long id;
 
     private String nome;
+
+    private Date dataCadastro;
 
     private String descricao;
 

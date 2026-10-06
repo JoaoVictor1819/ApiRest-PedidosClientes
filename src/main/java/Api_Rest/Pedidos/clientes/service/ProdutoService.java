@@ -1,6 +1,7 @@
 package Api_Rest.Pedidos.clientes.service;
 
 
+import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoResponseDto;
 import Api_Rest.Pedidos.clientes.dto.projection.ProdutoProjection;
 import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoRequestDto;
 import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoUpdateDto;
@@ -48,7 +49,7 @@ public class ProdutoService {
 
     }
 
-    public List<ProdutoRequestDto> findAllProduto(){
+    public List<ProdutoResponseDto> findAllProduto(){
         List<Produto> produtos = produtoRepository.findAll();
 
         return produtos.stream()
@@ -57,11 +58,16 @@ public class ProdutoService {
 
     }
 
-    private ProdutoRequestDto toResponseDto(Produto produto){
-        return new ProdutoRequestDto(produto.getDescricao(), produto.getNome(), produto.getPreco(), produto.getId(), produto.getStatusPedido() );
+    private ProdutoResponseDto toResponseDto(Produto produto){
+        return new ProdutoResponseDto(produto.getId(),
+                produto.getNome(),
+                produto.getDataCriacao(),
+                produto.getDescricao(),
+                produto.getPreco(),
+                produto.getStatusPedido());
     }
 
-    public List<ProdutoRequestDto> findByStatus(StatusPedido statusPedido){
+    public List<ProdutoResponseDto> findByStatus(StatusPedido statusPedido){
         List<Produto> produtoStatus = produtoRepository.findByStatusPedido(statusPedido);
 
         return produtoStatus.stream()
@@ -69,11 +75,16 @@ public class ProdutoService {
                 .toList();
     }
 
-    public ProdutoRequestDto findByIdProduto(Long id) {
+    public ProdutoResponseDto findByIdProduto(Long id) {
         Produto produto = produtoRepository.findById(id)
                 .orElseThrow(() -> new ResourceExceptionHandler("This product ID does not exist"));
 
-        return new ProdutoRequestDto(produto.getDescricao(), produto.getNome(), produto.getPreco(), produto.getId(), produto.getStatusPedido() );
+        return new ProdutoResponseDto(produto.getId(),
+                produto.getNome(),
+                produto.getDataCriacao(),
+                produto.getDescricao(),
+                produto.getPreco(),
+                produto.getStatusPedido());
     }
 
 

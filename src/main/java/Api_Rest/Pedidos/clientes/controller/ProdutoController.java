@@ -1,6 +1,7 @@
 package Api_Rest.Pedidos.clientes.controller;
 
 
+import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoResponseDto;
 import Api_Rest.Pedidos.clientes.dto.projection.ProdutoProjection;
 import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoRequestDto;
 import Api_Rest.Pedidos.clientes.dto.produto_dto.ProdutoUpdateDto;
@@ -35,15 +36,15 @@ public class ProdutoController {
 
     @GetMapping
     @Operation(summary = "Ver produtos", description = "Metodo para visualizar todos os produtos cadastrados")
-    public ResponseEntity<List<ProdutoRequestDto>> listarProdutos(){
+    public ResponseEntity<List<ProdutoResponseDto>> listarProdutos(){
         var produto = produtoService.findAllProduto();
         return ResponseEntity.status(HttpStatus.OK).body(produto);
     }
 
     @GetMapping("search/status_pedidos")
     @Operation(summary = "Filtrar Status", description = "Metodo que mostra produto por status filtrando para melhor visualizacao")
-    public ResponseEntity<List<ProdutoRequestDto>> listarStatusPedidos(@RequestParam (required = false) StatusPedido statusPedido){
-        List<ProdutoRequestDto> produto = produtoService.findByStatus(statusPedido);
+    public ResponseEntity<List<ProdutoResponseDto>> listarStatusPedidos(@RequestParam (required = false) StatusPedido statusPedido){
+        List<ProdutoResponseDto> produto = produtoService.findByStatus(statusPedido);
         return ResponseEntity.status(HttpStatus.OK).body(produto);
     }
 
@@ -56,7 +57,7 @@ public class ProdutoController {
 
     @GetMapping("search/{id}")
     @Operation(summary = "Filtrar por Id", description = "Metodo que pesquisa o produto por id")
-    public ResponseEntity<ProdutoRequestDto> buscarProduto(@PathVariable Long id){
+    public ResponseEntity<ProdutoResponseDto> buscarProduto(@PathVariable Long id){
         var produto = produtoService.findByIdProduto(id);
         return ResponseEntity.status(HttpStatus.OK).body(produto);
     }

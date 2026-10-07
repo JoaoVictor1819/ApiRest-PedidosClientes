@@ -18,12 +18,16 @@ public class Endereco {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "Endereco_cep",length = 8)
     private String cep;
 
+    @Column(name = "Endereco_estado")
     private String estado;
 
+    @Column(name = "Endereco_cidade")
     private String cidade;
 
+    @Column(name = "Endereco_numeroResidencia")
     private Integer numeroResidencia;
 
 

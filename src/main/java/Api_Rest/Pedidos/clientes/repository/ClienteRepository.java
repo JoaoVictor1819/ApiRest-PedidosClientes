@@ -51,7 +51,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
                     " e.cidade AS cidade," +
                     " e.estado AS estado," +
                     " e.cep AS cep " +
-                    "FROM cliente c " +
+                    "FROM cliente  c " +
                     "LEFT JOIN enderecos e ON c.endereco_id = e.id",
     countQuery = "SELECT COUNT(*) " +
             "FROM cliente c" +

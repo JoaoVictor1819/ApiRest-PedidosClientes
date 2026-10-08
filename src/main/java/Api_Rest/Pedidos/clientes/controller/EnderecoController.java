@@ -38,6 +38,6 @@ public class EnderecoController {
     @Operation(summary = "Deletar Endereco", description = "Metodo para deletar endereco")
     public ResponseEntity delete(@PathVariable Long id) {
         enderecoService.deleteEndereco(id);
-        return  ResponseEntity.status(HttpStatus.OK).body("Delet successfully");
+        return  ResponseEntity.status(HttpStatus.NO_CONTENT).body("Delet successfully");
     }
 }

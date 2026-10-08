@@ -73,6 +73,6 @@ public class ProdutoController {
     @Operation(summary = "Deletar produto", description = "Metodo que deleta um produto!")
     public ResponseEntity deletarProduto(@PathVariable Long id){
         produtoService.deleteProduto(id);
-        return  ResponseEntity.status(HttpStatus.OK).body("successfully deleted" + id);
+        return  ResponseEntity.status(HttpStatus.NO_CONTENT).body("successfully deleted" + id);
     }
 }

@@ -1,6 +1,7 @@
 package Api_Rest.Pedidos.clientes.service;
 
 import Api_Rest.Pedidos.clientes.dto.endereco_dto.EnderecoRequestDto;
+import Api_Rest.Pedidos.clientes.dto.endereco_dto.EnderecoUpdateDto;
 import Api_Rest.Pedidos.clientes.entity.endereco.Endereco;
 import Api_Rest.Pedidos.clientes.entity.cliente.Cliente;
 import Api_Rest.Pedidos.clientes.exception.BadRequestExceptionHandler;
@@ -54,7 +55,7 @@ public class EnderecoService {
     }
 
     @Transactional
-    public void updateEndereco(Long id, @Valid EnderecoRequestDto dto){
+    public void updateEndereco(Long id, @Valid EnderecoUpdateDto dto){
         Cliente cliente = clienteRepository.findById(dto.getClienteId())
                 .orElseThrow(() -> new ResourceExceptionHandler("este id nao existe"));
 

@@ -1,13 +1,12 @@
 package Api_Rest.Pedidos.clientes.entity.cliente;
 
 
-import Api_Rest.Pedidos.clientes.dto.cliente_dto.ClienteRequestDto;
+import Api_Rest.Pedidos.clientes.dto.cliente_dto.ClienteUpdateDto;
 import Api_Rest.Pedidos.clientes.entity.endereco.Endereco;
 import Api_Rest.Pedidos.clientes.entity.produto.Produto;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,7 +26,7 @@ public class Cliente {
     @Column(name = "Nome_Cliente", nullable = false)
     private String name;
 
-    @Column(name = "Email_Cliente",unique = true, nullable = true)
+    @Column(name = "Email_Cliente",unique = true, nullable = false)
     private String email;
 
     @Enumerated(EnumType.STRING)
@@ -44,9 +43,8 @@ public class Cliente {
     //Classe nao proprietaria| Relacionamento de um para muintos que sera consumido pela entidade que leva @ManyToOne
     private Set<Produto> produtos = new HashSet<>();
 
-    public Cliente(ClienteRequestDto dto) {
+    public Cliente(ClienteUpdateDto dto) {
         this.name = dto.getName();
-        this.email = dto.getEmail();
-        this.tiposPagamentos = dto.getTiposPagamentoPadrao();
+        this.tiposPagamentos = TiposPagamentos.valueOf(dto.getTiposPagamentoPadrao());
     }
 }

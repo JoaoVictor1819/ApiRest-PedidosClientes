@@ -1,6 +1,7 @@
 package Api_Rest.Pedidos.clientes.service;
 
 
+import Api_Rest.Pedidos.clientes.dto.cliente_dto.ClienteUpdateDto;
 import Api_Rest.Pedidos.clientes.dto.projection.ClienteProjection;
 import Api_Rest.Pedidos.clientes.dto.cliente_dto.ClienteRequestDto;
 import Api_Rest.Pedidos.clientes.dto.cliente_dto.ClienteResponseDto;
@@ -18,6 +19,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static com.fasterxml.jackson.databind.util.ClassUtil.name;
 
 @Service
 public class ClienteService {
@@ -106,17 +109,17 @@ public class ClienteService {
 
 
     @Transactional
-    public void updateCliente(Long id, ClienteRequestDto dto){
-        clienteRepository.findById(id)
+    public Cliente updateCliente(Long id, ClienteUpdateDto dto){
+         clienteRepository.findById(id)
                 .orElseThrow(() -> new ResourceExceptionHandler("Client id: "+ id + "Not Found!"));
 
 
-       clienteRepository.save(Cliente.builder()
-                       .name(dto.getName())
-                       .email(dto.getEmail())
-                       .tiposPagamentos(dto.getTiposPagamentoPadrao())
-                        .build());
+      var cliente = Cliente.builder()
+                .name(dto.getName())
+                .tiposPagamentos(TiposPagamentos.valueOf(dto.getTiposPagamentoPadrao()))
+                .build();
 
+      return clienteRepository.save(cliente);
     }
 
     public List<ClienteProjection> getAllClientes(){

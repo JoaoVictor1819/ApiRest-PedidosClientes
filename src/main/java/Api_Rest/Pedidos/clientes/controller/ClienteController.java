@@ -1,6 +1,7 @@
 package Api_Rest.Pedidos.clientes.controller;
 
 
+import Api_Rest.Pedidos.clientes.dto.cliente_dto.ClienteUpdateDto;
 import Api_Rest.Pedidos.clientes.dto.projection.ClienteProjection;
 import Api_Rest.Pedidos.clientes.dto.cliente_dto.ClienteRequestDto;
 import Api_Rest.Pedidos.clientes.dto.cliente_dto.ClienteResponseDto;
@@ -76,7 +77,7 @@ public class ClienteController {
 
     @PutMapping("/updates/{id}")
     @Operation(summary = "Metodo Modificar", description = "Metodo feito para modificar cliente por id!")
-    public ResponseEntity updateCliente(@PathVariable @Valid Long id, @RequestBody @Valid ClienteRequestDto dto) {
+    public ResponseEntity updateCliente(@PathVariable @Valid Long id, @RequestBody @Valid ClienteUpdateDto dto) {
         clienteService.updateCliente(id, dto);
         return ResponseEntity.status(HttpStatus.OK).body("Data successfully updated");
     }

@@ -2,6 +2,7 @@ package Api_Rest.Pedidos.clientes.controller;
 
 
 import Api_Rest.Pedidos.clientes.dto.endereco_dto.EnderecoRequestDto;
+import Api_Rest.Pedidos.clientes.dto.endereco_dto.EnderecoUpdateDto;
 import Api_Rest.Pedidos.clientes.entity.endereco.Endereco;
 import Api_Rest.Pedidos.clientes.service.EnderecoService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,7 +30,7 @@ public class EnderecoController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Atualizar Endereco", description = "Metodo para atualizar endereco")
-    public ResponseEntity<Endereco> updateEndereco(@Valid @PathVariable Long id, @Valid @RequestBody EnderecoRequestDto dto) {
+    public ResponseEntity<Endereco> updateEndereco(@Valid @PathVariable Long id, @Valid @RequestBody EnderecoUpdateDto dto) {
         enderecoService.updateEndereco(id, dto);
         return ResponseEntity.status(HttpStatus.OK).build();
     }

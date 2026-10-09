@@ -19,4 +19,5 @@ public class EnderecoUpdateDto {
 
     private Integer numeroResidencia;
 
+    private Long ClienteId;
 }

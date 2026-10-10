@@ -73,6 +73,5 @@ public class EnderecoService {
         cliente.setEndereco(endereco);
         clienteRepository.save(cliente);
 
-
     }
 }

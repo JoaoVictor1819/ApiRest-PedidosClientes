@@ -1,6 +1,7 @@
 package Api_Rest.Pedidos.clientes.service;
 
 import Api_Rest.Pedidos.clientes.dto.endereco_dto.EnderecoRequestDto;
+import Api_Rest.Pedidos.clientes.dto.endereco_dto.EnderecoResponseDto;
 import Api_Rest.Pedidos.clientes.dto.endereco_dto.EnderecoUpdateDto;
 import Api_Rest.Pedidos.clientes.entity.endereco.Endereco;
 import Api_Rest.Pedidos.clientes.entity.cliente.Cliente;
@@ -11,6 +12,8 @@ import Api_Rest.Pedidos.clientes.repository.EnderecoRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class EnderecoService {
@@ -73,5 +76,17 @@ public class EnderecoService {
         cliente.setEndereco(endereco);
         clienteRepository.save(cliente);
 
+    }
+
+    public List<EnderecoResponseDto> findByCidade(String cidade){
+        List<Endereco> endereco = enderecoRepository.findByCidadeContainingIgnoreCase(cidade);
+
+        if (endereco.isEmpty()){
+            throw new ResourceExceptionHandler("Nao existe nenhum endereco cadastrado nesta cidade: "+cidade);
+        }
+
+        return endereco.stream()
+                .map(e -> new EnderecoResponseDto(e.getId(), e.getCep(), e.getEstado(), e.getCidade(), e.getNumeroResidencia()))
+                .toList();
     }
 }

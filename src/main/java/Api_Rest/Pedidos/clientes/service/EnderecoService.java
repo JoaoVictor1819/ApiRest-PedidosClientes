@@ -78,7 +78,7 @@ public class EnderecoService {
 
     }
 
-    public List<EnderecoResponseDto> findByCidade(String cidade){
+    public List<EnderecoResponseDto> findByCidade(String cidade) throws ResourceExceptionHandler{
         List<Endereco> endereco = enderecoRepository.findByCidadeContainingIgnoreCase(cidade);
 
         if (cidade.isEmpty() || endereco.isEmpty()){

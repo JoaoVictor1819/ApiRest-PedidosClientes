@@ -81,7 +81,7 @@ public class EnderecoService {
     public List<EnderecoResponseDto> findByCidade(String cidade){
         List<Endereco> endereco = enderecoRepository.findByCidadeContainingIgnoreCase(cidade);
 
-        if (endereco.isEmpty()){
+        if (cidade.isEmpty() || endereco.isEmpty()){
             throw new ResourceExceptionHandler("Nao existe nenhum endereco cadastrado nesta cidade: "+cidade);
         }
 

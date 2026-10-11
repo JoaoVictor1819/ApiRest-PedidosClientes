@@ -2,6 +2,7 @@ package Api_Rest.Pedidos.clientes.controller;
 
 
 import Api_Rest.Pedidos.clientes.dto.endereco_dto.EnderecoRequestDto;
+import Api_Rest.Pedidos.clientes.dto.endereco_dto.EnderecoResponseDto;
 import Api_Rest.Pedidos.clientes.dto.endereco_dto.EnderecoUpdateDto;
 import Api_Rest.Pedidos.clientes.entity.endereco.Endereco;
 import Api_Rest.Pedidos.clientes.service.EnderecoService;
@@ -12,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/endereco")
@@ -28,6 +31,13 @@ public class EnderecoController {
         return  ResponseEntity.status(HttpStatus.CREATED).body("successfully created");
     }
 
+    @GetMapping("/search/city")
+    public ResponseEntity<List<EnderecoResponseDto>> findByCity(@RequestParam (required = false )String cidade) {
+        List<EnderecoResponseDto> endereco = enderecoService.findByCidade(cidade);
+        return ResponseEntity.status(HttpStatus.OK).body(endereco);
+    }
+
+
     @PutMapping("/{id}")
     @Operation(summary = "Atualizar Endereco", description = "Metodo para atualizar endereco")
     public ResponseEntity<Endereco> updateEndereco(@Valid @PathVariable Long id, @Valid @RequestBody EnderecoUpdateDto dto) {
@@ -41,4 +51,6 @@ public class EnderecoController {
         enderecoService.deleteEndereco(id);
         return  ResponseEntity.status(HttpStatus.NO_CONTENT).body("Delet successfully");
     }
+
+
 }
